@@ -1,7 +1,7 @@
 import { createClient } from '@/lib/supabase-server';
 import { redirect } from 'next/navigation';
 import Link from 'next/link';
-import { ExternalLink, Folder } from 'lucide-react';
+import { ExternalLink } from 'lucide-react';
 import CreateProjectBtn from '@/components/CreateProjectBtn';
 
 export default async function DashboardPage() {
@@ -54,9 +54,10 @@ export default async function DashboardPage() {
 
           {/* Cards 2...n: The Actual Projects */}
           {projects?.map((project) => (
-            <div 
-              key={project.id}
-              className="group relative flex h-48 flex-col justify-between overflow-hidden rounded-2xl border border-neutral-200 bg-white p-6 shadow-sm transition-all hover:shadow-md"
+            <Link 
+              key={project.id} 
+              href={`/dashboard/project/${project.id}`}
+              className="group relative flex h-48 flex-col justify-between overflow-hidden rounded-2xl border border-neutral-200 bg-white p-6 shadow-sm transition-all hover:shadow-md hover:ring-2 hover:ring-blue-500/20"
             >
               <div className="space-y-2">
                 <div className="flex items-start justify-between">
@@ -64,13 +65,15 @@ export default async function DashboardPage() {
                     {project.client_name}
                   </div>
                   {/* Link to the public page */}
-                  <Link 
-                    href={`/p/${project.magic_slug}`} 
-                    target="_blank"
-                    className="text-neutral-400 hover:text-blue-600"
-                  >
-                    <ExternalLink className="h-4 w-4" />
-                  </Link>
+                  <object className="relative z-10">
+                    <Link 
+                      href={`/p/${project.magic_slug}`} 
+                      target="_blank"
+                      className="text-neutral-400 hover:text-blue-600"
+                    >
+                      <ExternalLink className="h-4 w-4" />
+                    </Link>
+                  </object>
                 </div>
                 <h3 className="font-semibold text-neutral-900">
                   {project.project_name}
@@ -91,7 +94,7 @@ export default async function DashboardPage() {
                   {new Date(project.created_at).toLocaleDateString()}
                 </p>
               </div>
-            </div>
+            </Link>
           ))}
 
         </div>

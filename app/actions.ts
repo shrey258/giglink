@@ -43,3 +43,49 @@ export async function createProject(formData: FormData) {
   
   return { success: true };
 }
+
+export async function createLink(formData: FormData) {
+  const supabase = await createClient();
+  
+  // 1. Check Auth
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) return { error: 'Unauthorized' };
+
+  // 2. Extract Data
+  const projectId = formData.get('projectId') as string;
+  const title = formData.get('title') as string;
+  const url = formData.get('url') as string;
+  const type = formData.get('type') as string;
+
+  if (!url || !title) return { error: 'Missing fields' };
+
+  // 3. Insert
+  const { error } = await supabase.from('project_links').insert({
+    project_id: projectId,
+    title,
+    url,
+    type,
+  });
+
+  if (error) {
+    console.error(error);
+    return { error: 'Failed to add link' };
+  }
+
+  revalidatePath(`/dashboard/project/${projectId}`);
+  return { success: true };
+}
+
+export async function deleteLink(linkId: string, projectId: string) {
+  const supabase = await createClient();
+  
+  const { error } = await supabase
+    .from('project_links')
+    .delete()
+    .eq('id', linkId);
+
+  if (error) return { error: 'Failed to delete' };
+
+  revalidatePath(`/dashboard/project/${projectId}`);
+  return { success: true };
+}
