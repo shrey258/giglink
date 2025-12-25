@@ -4,26 +4,19 @@ import Link from 'next/link';
 import { ArrowLeft, ExternalLink, Trash2 } from 'lucide-react';
 import AddLink from '@/components/AddLink';
 import { deleteLink } from '@/app/actions';
+import { getProjectById, getProjectLinks } from '@/lib/queries/projects';
 
 export default async function ProjectEditor({ params }: { params: { id: string } }) {
   const { id } = await params; // await params in Next.js 15
   const supabase = await createClient();
 
   // 1. Fetch Project
-  const { data: project } = await supabase
-    .from('projects')
-    .select('*')
-    .eq('id', id)
-    .single();
+  const { data: project } = await getProjectById(id, supabase);
 
   if (!project) notFound();
 
   // 2. Fetch Links
-  const { data: links } = await supabase
-    .from('project_links')
-    .select('*')
-    .eq('project_id', id)
-    .order('created_at', { ascending: true });
+  const { data: links } = await getProjectLinks(id, supabase);
 
   return (
     <div className="min-h-screen bg-neutral-50 p-8">

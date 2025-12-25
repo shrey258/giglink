@@ -3,6 +3,7 @@ import { redirect } from 'next/navigation';
 import Link from 'next/link';
 import { ExternalLink } from 'lucide-react';
 import CreateProjectBtn from '@/components/CreateProjectBtn';
+import { getUserProjects } from '@/lib/queries/projects';
 
 export default async function DashboardPage() {
   const supabase = await createClient();
@@ -14,11 +15,7 @@ export default async function DashboardPage() {
   }
 
   // 2. Fetch User's Projects
-  const { data: projects } = await supabase
-    .from('projects')
-    .select('*')
-    .eq('user_id', user.id)
-    .order('created_at', { ascending: false });
+  const { data: projects } = await getUserProjects(user.id, supabase);
 
   return (
     <div className="min-h-screen bg-neutral-50 p-8">

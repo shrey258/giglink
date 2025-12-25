@@ -1,37 +1,24 @@
-import { supabase } from '@/lib/supabase';
+import { createClient } from '@/lib/supabase-server';
 import { notFound } from 'next/navigation';
 import LinkCard from '@/components/LinkCard';
+import { getProjectBySlug, getProjectLinks } from '@/lib/queries/projects';
 
 // Force dynamic rendering so we always get fresh data
 export const dynamic = 'force-dynamic';
 
 export default async function ProjectPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
+  const supabase = await createClient();
 
   // 1. Fetch Project Details
-  console.log('Fetching project with slug:', slug);
-  
-  const { data: project, error: projectError } = await supabase
-    .from('projects')
-    .select('*')
-    .eq('magic_slug', slug)
-    .single();
-
-  if (projectError) {
-    console.error('Error fetching project:', projectError);
-  }
+  const { data: project } = await getProjectBySlug(slug, supabase);
 
   if (!project) {
-    console.log('Project not found for slug:', slug);
     notFound();
   }
 
   // 2. Fetch Links associated with this project
-  const { data: links } = await supabase
-    .from('project_links')
-    .select('*')
-    .eq('project_id', project.id)
-    .order('created_at', { ascending: true });
+  const { data: links } = await getProjectLinks(project.id, supabase);
 
   return (
     <div className="min-h-screen bg-neutral-50 py-24 px-4">
