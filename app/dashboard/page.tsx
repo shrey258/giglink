@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { ExternalLink } from 'lucide-react';
 import CreateProjectBtn from '@/components/CreateProjectBtn';
 import { getUserProjects } from '@/lib/queries/projects';
+import { signOut } from '@/app/actions';
 
 export default async function DashboardPage() {
   const supabase = await createClient();
@@ -31,15 +32,24 @@ export default async function DashboardPage() {
               Manage your client links and projects.
             </p>
           </div>
-          <div className="h-10 w-10 overflow-hidden rounded-full border border-neutral-200 bg-white">
-            {/* Show User Avatar or Fallback */}
-            {user.user_metadata.avatar_url ? (
-              <img src={user.user_metadata.avatar_url} alt="User" />
-            ) : (
-              <div className="flex h-full w-full items-center justify-center bg-blue-100 text-blue-600 font-bold">
-                {user.email?.[0].toUpperCase()}
-              </div>
-            )}
+          <div className="flex items-center gap-3">
+            <form action={signOut}>
+              <button
+                className="rounded-full border border-neutral-200 px-4 py-2 text-sm font-medium text-neutral-700 transition-colors hover:border-neutral-300 hover:bg-white"
+              >
+                Log out
+              </button>
+            </form>
+            <div className="h-10 w-10 overflow-hidden rounded-full border border-neutral-200 bg-white">
+              {/* Show User Avatar or Fallback */}
+              {user.user_metadata.avatar_url ? (
+                <img src={user.user_metadata.avatar_url} alt="User" />
+              ) : (
+                <div className="flex h-full w-full items-center justify-center bg-blue-100 text-blue-600 font-bold">
+                  {user.email?.[0].toUpperCase()}
+                </div>
+              )}
+            </div>
           </div>
         </div>
 
