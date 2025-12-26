@@ -3,10 +3,13 @@ import { createClient } from '@/lib/supabase-server';
 type SupabaseServerClient = Awaited<ReturnType<typeof createClient>>;
 
 async function resolveClient(client?: SupabaseServerClient) {
-  return client ?? await createClient();
+  return client ?? (await createClient());
 }
 
-export async function getUserProjects(userId: string, client?: SupabaseServerClient) {
+export async function getUserProjects(
+  userId: string,
+  client?: SupabaseServerClient
+) {
   const supabase = await resolveClient(client);
 
   return supabase
@@ -16,27 +19,28 @@ export async function getUserProjects(userId: string, client?: SupabaseServerCli
     .order('created_at', { ascending: false });
 }
 
-export async function getProjectById(projectId: string, client?: SupabaseServerClient) {
+export async function getProjectById(
+  projectId: string,
+  client?: SupabaseServerClient
+) {
   const supabase = await resolveClient(client);
 
-  return supabase
-    .from('projects')
-    .select('*')
-    .eq('id', projectId)
-    .single();
+  return supabase.from('projects').select('*').eq('id', projectId).single();
 }
 
-export async function getProjectBySlug(slug: string, client?: SupabaseServerClient) {
+export async function getProjectBySlug(
+  slug: string,
+  client?: SupabaseServerClient
+) {
   const supabase = await resolveClient(client);
 
-  return supabase
-    .from('projects')
-    .select('*')
-    .eq('magic_slug', slug)
-    .single();
+  return supabase.from('projects').select('*').eq('magic_slug', slug).single();
 }
 
-export async function getProjectLinks(projectId: string, client?: SupabaseServerClient) {
+export async function getProjectLinks(
+  projectId: string,
+  client?: SupabaseServerClient
+) {
   const supabase = await resolveClient(client);
 
   return supabase

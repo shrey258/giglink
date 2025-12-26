@@ -6,11 +6,36 @@ import { motion } from 'framer-motion';
 
 // 1. Map types to Icons and Colors
 const iconMap = {
-  figma: { icon: Figma, color: 'text-purple-500', bg: 'bg-purple-500/10', border: 'hover:border-purple-500' },
-  github: { icon: Github, color: 'text-neutral-900', bg: 'bg-neutral-900/10', border: 'hover:border-neutral-900' },
-  invoice: { icon: FileText, color: 'text-green-600', bg: 'bg-green-600/10', border: 'hover:border-green-600' },
-  video: { icon: Video, color: 'text-pink-500', bg: 'bg-pink-500/10', border: 'hover:border-pink-500' },
-  default: { icon: ExternalLink, color: 'text-blue-500', bg: 'bg-blue-500/10', border: 'hover:border-blue-500' },
+  figma: {
+    icon: Figma,
+    color: 'text-purple-500',
+    bg: 'bg-purple-500/10',
+    border: 'hover:border-purple-500',
+  },
+  github: {
+    icon: Github,
+    color: 'text-neutral-900',
+    bg: 'bg-neutral-900/10',
+    border: 'hover:border-neutral-900',
+  },
+  invoice: {
+    icon: FileText,
+    color: 'text-green-600',
+    bg: 'bg-green-600/10',
+    border: 'hover:border-green-600',
+  },
+  video: {
+    icon: Video,
+    color: 'text-pink-500',
+    bg: 'bg-pink-500/10',
+    border: 'hover:border-pink-500',
+  },
+  default: {
+    icon: ExternalLink,
+    color: 'text-blue-500',
+    bg: 'bg-blue-500/10',
+    border: 'hover:border-blue-500',
+  },
 };
 
 interface LinkCardProps {
@@ -30,16 +55,18 @@ export default function LinkCard({ title, url, type, index }: LinkCardProps) {
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: index * 0.1, duration: 0.4 }} // The "Stagger" effect
     >
-      <Link 
-        href={url} 
+      <Link
+        href={url}
         target="_blank"
         className={`group flex items-center gap-4 rounded-xl border border-neutral-200 bg-white p-4 transition-all hover:shadow-md ${style.border}`}
       >
         {/* Icon Box */}
-        <div className={`flex h-12 w-12 items-center justify-center rounded-lg ${style.bg}`}>
+        <div
+          className={`flex h-12 w-12 items-center justify-center rounded-lg ${style.bg}`}
+        >
           <Icon className={`h-6 w-6 ${style.color}`} />
         </div>
-        
+
         {/* Text Content */}
         <div className="flex-1">
           <h3 className="font-medium text-neutral-900 group-hover:text-black">

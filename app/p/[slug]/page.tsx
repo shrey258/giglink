@@ -6,7 +6,11 @@ import { getProjectBySlug, getProjectLinks } from '@/lib/queries/projects';
 // Force dynamic rendering so we always get fresh data
 export const dynamic = 'force-dynamic';
 
-export default async function ProjectPage({ params }: { params: Promise<{ slug: string }> }) {
+export default async function ProjectPage({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
   const { slug } = await params;
   const supabase = await createClient();
 
@@ -23,7 +27,6 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
   return (
     <div className="min-h-screen bg-neutral-50 py-24 px-4">
       <div className="mx-auto max-w-xl space-y-12">
-        
         {/* Header Section */}
         <div className="space-y-2 text-center">
           <div className="inline-block rounded-full bg-blue-100 px-3 py-1 text-xs font-semibold tracking-wider text-blue-700 uppercase">
@@ -37,7 +40,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
         {/* Links Grid */}
         <div className="flex flex-col gap-4">
           {links?.map((link, index) => (
-            <LinkCard 
+            <LinkCard
               key={link.id}
               index={index} // Pass index for animation delay
               title={link.title}
@@ -50,10 +53,10 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
         {/* Footer */}
         <div className="mt-12 text-center opacity-60">
           <p className="text-xs text-neutral-400">
-            Securely shared via <span className="font-semibold text-neutral-600">GigLink</span>
+            Securely shared via{' '}
+            <span className="font-semibold text-neutral-600">GigLink</span>
           </p>
         </div>
-
       </div>
     </div>
   );

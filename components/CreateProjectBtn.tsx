@@ -32,7 +32,7 @@ export default function CreateProjectBtn() {
   return (
     <>
       {/* 1. The Trigger Button (Dashed Border) */}
-      <button 
+      <button
         onClick={() => setIsOpen(true)}
         disabled={loading}
         className="group relative flex h-48 flex-col items-center justify-center gap-2 rounded-2xl border-2 border-dashed border-neutral-200 bg-transparent transition-all hover:border-blue-500 hover:bg-blue-50/50 disabled:cursor-not-allowed disabled:opacity-60"
@@ -47,9 +47,8 @@ export default function CreateProjectBtn() {
       <AnimatePresence>
         {isOpen && (
           <div className="fixed inset-0 z-50 flex items-center justify-center px-4">
-            
             {/* Backdrop */}
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
@@ -58,7 +57,7 @@ export default function CreateProjectBtn() {
             />
 
             {/* Modal Content */}
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, scale: 0.95, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
@@ -66,8 +65,10 @@ export default function CreateProjectBtn() {
             >
               {/* Header */}
               <div className="flex items-center justify-between border-b border-neutral-100 p-6">
-                <h2 className="text-xl font-bold text-neutral-900">New Project</h2>
-                <button 
+                <h2 className="text-xl font-bold text-neutral-900">
+                  New Project
+                </h2>
+                <button
                   onClick={() => setIsOpen(false)}
                   className="rounded-full p-2 text-neutral-400 hover:bg-neutral-100 hover:text-neutral-600"
                 >
@@ -82,7 +83,7 @@ export default function CreateProjectBtn() {
                     <label className="mb-1 block text-sm font-medium text-neutral-600">
                       Client Name
                     </label>
-                    <input 
+                    <input
                       name="clientName"
                       required
                       placeholder="e.g. Acme Corp"
@@ -94,7 +95,7 @@ export default function CreateProjectBtn() {
                     <label className="mb-1 block text-sm font-medium text-neutral-600">
                       Project Name
                     </label>
-                    <input 
+                    <input
                       name="projectName"
                       required
                       placeholder="e.g. Website Redesign"

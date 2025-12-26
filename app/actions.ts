@@ -8,7 +8,9 @@ export async function createProject(formData: FormData) {
   const supabase = await createClient();
 
   // 1. Check Auth
-  const { data: { user } } = await supabase.auth.getUser();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
   if (!user) {
     return { error: 'You must be logged in' };
   }
@@ -23,7 +25,10 @@ export async function createProject(formData: FormData) {
 
   // 3. Generate a Random "Magic Slug" (e.g., "x9z2-m4k1")
   // Simple random string generator without external libraries
-  const magicSlug = Math.random().toString(36).substring(2, 6) + '-' + Math.random().toString(36).substring(2, 6);
+  const magicSlug =
+    Math.random().toString(36).substring(2, 6) +
+    '-' +
+    Math.random().toString(36).substring(2, 6);
 
   // 4. Insert into DB
   const { error } = await supabase.from('projects').insert({
@@ -41,15 +46,17 @@ export async function createProject(formData: FormData) {
 
   // 5. Refresh the Dashboard so the new project appears immediately
   revalidatePath('/dashboard');
-  
+
   return { success: true };
 }
 
 export async function createLink(formData: FormData) {
   const supabase = await createClient();
-  
+
   // 1. Check Auth
-  const { data: { user } } = await supabase.auth.getUser();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
   if (!user) return { error: 'Unauthorized' };
 
   // 2. Extract Data
@@ -79,7 +86,7 @@ export async function createLink(formData: FormData) {
 
 export async function deleteLink(linkId: string, projectId: string) {
   const supabase = await createClient();
-  
+
   const { error } = await supabase
     .from('project_links')
     .delete()
@@ -99,8 +106,10 @@ export async function signOut() {
 
 export async function deleteProject(projectId: string) {
   const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
-  
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
   if (!user) return { error: 'Unauthorized' };
 
   const { error } = await supabase
