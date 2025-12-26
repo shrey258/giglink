@@ -1,32 +1,56 @@
 'use client';
 
-import { FormEvent, useState } from 'react';
-import { Plus, Loader2, X } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { FormEvent, useMemo, useState } from 'react';
+import { Plus, Loader2, X, Check } from 'lucide-react';
+import { motion, AnimatePresence, LayoutGroup } from 'framer-motion';
 import { createProject } from '@/app/actions'; // Import the server action
 
 export default function CreateProjectBtn() {
   const [isOpen, setIsOpen] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [phase, setPhase] = useState<'idle' | 'loading' | 'success'>('idle');
+
+  const { loading, success } = useMemo(
+    () => ({
+      loading: phase === 'loading',
+      success: phase === 'success',
+    }),
+    [phase]
+  );
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    if (loading) return;
+    if (phase !== 'idle') return;
 
     const form = event.currentTarget;
-    setLoading(true);
+    setPhase('loading');
+
+    // --- Simulation mode for animation work ---
+
+    // await new Promise(resolve => setTimeout(resolve, 2000));
+    // setPhase('success');
+
+    // // Wait for success animation
+    // await new Promise(resolve => setTimeout(resolve, 1500));
+    // setPhase('idle');
+    // setIsOpen(false);
+
+    // --- Real submission (restore when ready) ---
 
     const formData = new FormData(form);
     const res = await createProject(formData);
 
     if (res?.success) {
-      form.reset();
-      setIsOpen(false); // Close modal on success
+      setPhase('success');
+
+      setTimeout(() => {
+        setPhase('idle');
+        setIsOpen(false);
+        form.reset();
+      }, 1000);
     } else {
+      setPhase('idle');
       alert(res?.error || 'Something went wrong');
     }
-
-    setLoading(false);
   }
 
   return (
@@ -105,53 +129,122 @@ export default function CreateProjectBtn() {
                 </div>
 
                 <div className="mt-8 flex justify-end gap-3">
-                  <button
+                  <motion.button
+                    layout
                     type="button"
                     onClick={() => setIsOpen(false)}
                     className="rounded-xl px-4 py-2.5 text-sm font-medium text-neutral-600 hover:bg-neutral-100"
                   >
                     Cancel
-                  </button>
+                  </motion.button>
                   <motion.button
                     layout
                     type="submit"
-                    disabled={loading}
-                    className="flex items-center gap-2 rounded-xl bg-neutral-900 px-6 py-2.5 text-sm font-medium text-white hover:bg-black disabled:cursor-not-allowed disabled:opacity-50"
+                    disabled={loading || success}
+                    /* Use framer-motion to animate the background color change too */
+                    animate={{
+                      backgroundColor: success
+                        ? 'rgb(34 197 94)'
+                        : 'rgb(23 23 23)',
+                    }}
+                    className="relative flex items-center justify-center gap-2 rounded-xl px-6 py-2.5 text-sm font-medium text-white disabled:cursor-not-allowed overflow-hidden"
                   >
-                    <span className="flex items-center gap-2">
-                      <AnimatePresence>
-                        {loading && (
+                    {/* LayoutGroup ensures the icon and text coordinate their movement */}
+                    <LayoutGroup>
+                      <AnimatePresence mode="popLayout" initial={false}>
+                        {success ? (
                           <motion.span
-                            key="loading"
-                            initial={{ opacity: 0, scale: 0.8, x: -20 }}
-                            animate={{ opacity: 1, scale: 1, x: 0 }}
-                            exit={{ opacity: 0, scale: 0.8, x: -20 }}
+                            key="success-icon"
+                            layout
+                            initial={{ opacity: 0, x: -10, scale: 0.5 }}
+                            animate={{ opacity: 1, x: 0, scale: 1 }}
+                            exit={{ opacity: 0, x: -10, scale: 0.5 }}
                             transition={{
-                              duration: 0.3,
                               type: 'spring',
                               bounce: 0,
+                              duration: 0.3,
+                            }}
+                          >
+                            <Check className="h-4 w-4" />
+                          </motion.span>
+                        ) : loading ? (
+                          <motion.span
+                            key="loading-icon"
+                            layout
+                            initial={{
+                              opacity: 0,
+                              x: -10,
+                              scale: 0.5,
+                              filter: 'blur(4px)',
+                            }}
+                            animate={{
+                              opacity: 1,
+                              x: 0,
+                              scale: 1,
+                              filter: 'blur(0px)',
+                            }}
+                            exit={{
+                              opacity: 0,
+                              x: -10,
+                              scale: 0.5,
+                              filter: 'blur(4px)',
+                            }}
+                            transition={{
+                              type: 'spring',
+                              bounce: 0.2,
+                              duration: 0.3,
                             }}
                           >
                             <Loader2 className="h-4 w-4 animate-spin" />
                           </motion.span>
-                        )}
+                        ) : null}
                       </AnimatePresence>
-                      <AnimatePresence initial={false}>
-                        <motion.span
-                          key={loading ? 'loading' : 'idle'}
-                          initial={{ opacity: 0, x: 20 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          exit={{ opacity: 0, x: 20 }}
-                          transition={{
-                            duration: 0.3,
-                            type: 'spring',
-                            bounce: 0,
-                          }}
-                        >
-                          {loading ? 'Creating…' : 'Create Project'}
-                        </motion.span>
-                      </AnimatePresence>
-                    </span>
+
+                      <div className="relative">
+                        <AnimatePresence mode="popLayout" initial={false}>
+                          <motion.span
+                            key={
+                              success
+                                ? 'success-text'
+                                : loading
+                                  ? 'loading-text'
+                                  : 'idle-text'
+                            }
+                            layout
+                            initial={{
+                              opacity: 0,
+                              x: 20,
+                              scale: 0.6,
+                              filter: 'blur(4px)',
+                            }}
+                            animate={{
+                              opacity: 1,
+                              x: 0,
+                              scale: 1,
+                              filter: 'blur(0px)',
+                            }}
+                            exit={{
+                              opacity: 0,
+                              x: -20,
+                              scale: 0.6,
+                              filter: 'blur(4px)',
+                            }}
+                            transition={{
+                              type: 'spring',
+                              bounce: 0,
+                              duration: 0.3,
+                            }}
+                            className="block whitespace-nowrap"
+                          >
+                            {success
+                              ? 'Created!'
+                              : loading
+                                ? 'Creating...'
+                                : 'Create Project'}
+                          </motion.span>
+                        </AnimatePresence>
+                      </div>
+                    </LayoutGroup>
                   </motion.button>
                 </div>
               </form>
