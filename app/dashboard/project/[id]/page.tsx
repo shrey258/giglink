@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { ArrowLeft, ExternalLink, Trash2 } from 'lucide-react';
 import AddLink from '@/components/AddLink';
+import DeleteProjectBtn from '@/components/DeleteProjectBtn';
 import { deleteLink } from '@/app/actions';
 import { getProjectById, getProjectLinks } from '@/lib/queries/projects';
 
@@ -34,13 +35,17 @@ export default async function ProjectEditor({ params }: { params: { id: string }
             <h1 className="text-2xl font-bold text-neutral-900">{project.project_name}</h1>
           </div>
           
-          <Link 
-            href={`/p/${project.magic_slug}`}
-            target="_blank" 
-            className="flex items-center gap-2 rounded-full border border-neutral-200 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition-colors hover:bg-neutral-50"
-          >
-            View Live Page <ExternalLink className="h-4 w-4" />
-          </Link>
+          <div className="flex items-center gap-3">
+            <DeleteProjectBtn projectId={project.id} projectName={project.project_name} />
+            
+            <Link 
+              href={`/p/${project.magic_slug}`}
+              target="_blank" 
+              className="flex items-center gap-2 rounded-xl border border-neutral-200 bg-white px-4 py-2 text-sm font-medium text-neutral-700 transition-colors hover:bg-neutral-50"
+            >
+              View Live Page <ExternalLink className="h-4 w-4" />
+            </Link>
+          </div>
         </div>
 
         <div className="grid gap-8 lg:grid-cols-[2fr_1fr]">

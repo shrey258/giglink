@@ -96,3 +96,24 @@ export async function signOut() {
   await supabase.auth.signOut();
   redirect('/login');
 }
+
+export async function deleteProject(projectId: string) {
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  
+  if (!user) return { error: 'Unauthorized' };
+
+  const { error } = await supabase
+    .from('projects')
+    .delete()
+    .eq('id', projectId)
+    .eq('user_id', user.id);
+
+  if (error) {
+    console.error(error);
+    return { error: 'Failed to delete project' };
+  }
+
+  revalidatePath('/dashboard');
+  redirect('/dashboard');
+}
