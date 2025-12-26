@@ -112,20 +112,47 @@ export default function CreateProjectBtn() {
                   >
                     Cancel
                   </button>
-                  <button
+                  <motion.button
+                    layout
                     type="submit"
                     disabled={loading}
                     className="flex items-center gap-2 rounded-xl bg-neutral-900 px-6 py-2.5 text-sm font-medium text-white hover:bg-black disabled:cursor-not-allowed disabled:opacity-50"
                   >
-                    {loading ? (
-                      <>
-                        <Loader2 className="h-4 w-4 animate-spin" />
-                        Creating…
-                      </>
-                    ) : (
-                      'Create Project'
-                    )}
-                  </button>
+                    <span className="flex items-center gap-2">
+                      <AnimatePresence>
+                        {loading && (
+                          <motion.span
+                            key="loading"
+                            initial={{ opacity: 0, scale: 0.8, x: -20 }}
+                            animate={{ opacity: 1, scale: 1, x: 0 }}
+                            exit={{ opacity: 0, scale: 0.8, x: -20 }}
+                            transition={{
+                              duration: 0.3,
+                              type: 'spring',
+                              bounce: 0,
+                            }}
+                          >
+                            <Loader2 className="h-4 w-4 animate-spin" />
+                          </motion.span>
+                        )}
+                      </AnimatePresence>
+                      <AnimatePresence initial={false}>
+                        <motion.span
+                          key={loading ? 'loading' : 'idle'}
+                          initial={{ opacity: 0, x: 20 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          exit={{ opacity: 0, x: 20 }}
+                          transition={{
+                            duration: 0.3,
+                            type: 'spring',
+                            bounce: 0,
+                          }}
+                        >
+                          {loading ? 'Creating…' : 'Create Project'}
+                        </motion.span>
+                      </AnimatePresence>
+                    </span>
+                  </motion.button>
                 </div>
               </form>
             </motion.div>
