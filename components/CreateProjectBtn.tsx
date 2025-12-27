@@ -32,7 +32,7 @@ export default function CreateProjectBtn() {
     // // Wait for success animation
     // await new Promise(resolve => setTimeout(resolve, 1500));
     // setPhase('idle');
-    // setIsOpen(false);
+    //setIsOpen(false);
 
     // --- Real submission (restore when ready) ---
 
@@ -156,13 +156,28 @@ export default function CreateProjectBtn() {
                           <motion.span
                             key="success-icon"
                             layout
-                            initial={{ opacity: 0, x: -10, scale: 0.5 }}
-                            animate={{ opacity: 1, x: 0, scale: 1 }}
-                            exit={{ opacity: 0, x: -10, scale: 0.5 }}
+                            initial={{
+                              opacity: 0,
+                              x: -10,
+                              scale: 0.5,
+                              filter: 'blur(4px)',
+                            }}
+                            animate={{
+                              opacity: 1,
+                              x: 0,
+                              scale: 1,
+                              filter: 'blur(0px)',
+                            }}
+                            exit={{
+                              opacity: 0,
+                              x: -10,
+                              scale: 0.5,
+                              filter: 'blur(4px)',
+                            }}
                             transition={{
                               type: 'spring',
                               bounce: 0,
-                              duration: 0.3,
+                              duration: 0.4,
                             }}
                           >
                             <Check className="h-4 w-4" />
@@ -192,7 +207,7 @@ export default function CreateProjectBtn() {
                             transition={{
                               type: 'spring',
                               bounce: 0.2,
-                              duration: 0.3,
+                              duration: 0.4,
                             }}
                           >
                             <Loader2 className="h-4 w-4 animate-spin" />
@@ -232,7 +247,7 @@ export default function CreateProjectBtn() {
                             transition={{
                               type: 'spring',
                               bounce: 0,
-                              duration: 0.3,
+                              duration: 0.4,
                             }}
                             className="block whitespace-nowrap"
                           >
