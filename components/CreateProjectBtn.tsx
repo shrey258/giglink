@@ -215,50 +215,52 @@ export default function CreateProjectBtn() {
                         ) : null}
                       </AnimatePresence>
 
-                      <div className="relative">
-                        <AnimatePresence mode="popLayout" initial={false}>
-                          <motion.span
-                            key={
-                              success
-                                ? 'success-text'
-                                : loading
-                                  ? 'loading-text'
-                                  : 'idle-text'
-                            }
-                            layout
-                            initial={{
-                              opacity: 0,
-                              x: 20,
-                              scale: 0.6,
-                              filter: 'blur(4px)',
-                            }}
-                            animate={{
-                              opacity: 1,
-                              x: 0,
-                              scale: 1,
-                              filter: 'blur(0px)',
-                            }}
-                            exit={{
-                              opacity: 0,
-                              x: -20,
-                              scale: 0.6,
-                              filter: 'blur(4px)',
-                            }}
-                            transition={{
-                              type: 'spring',
-                              bounce: 0,
-                              duration: 0.4,
-                            }}
-                            className="block whitespace-nowrap"
-                          >
-                            {success
-                              ? 'Created!'
-                              : loading
-                                ? 'Creating...'
-                                : 'Create Project'}
-                          </motion.span>
-                        </AnimatePresence>
-                      </div>
+                      <motion.div layout className="flex items-center">
+                        <motion.span
+                          layout
+                          className="font-medium"
+                          transition={{
+                            type: 'spring',
+                            bounce: 0,
+                            duration: 0.4,
+                          }}
+                        >
+                          Creat
+                        </motion.span>
+                        <div className="relative min-w-[4px]">
+                          <AnimatePresence mode="popLayout" initial={false}>
+                            <motion.span
+                              key={
+                                success
+                                  ? 'suffix-success'
+                                  : loading
+                                    ? 'suffix-loading'
+                                    : 'suffix-idle'
+                              }
+                              layout
+                              initial={{
+                                opacity: 0,
+                                x: 10,
+                                filter: 'blur(4px)',
+                              }}
+                              animate={{
+                                opacity: 1,
+                                x: 0,
+                                filter: 'blur(0px)',
+                              }}
+                              exit={{ opacity: 0, x: 10, filter: 'blur(4px)' }}
+                              transition={{
+                                type: 'spring',
+                                bounce: 0,
+                                duration: 0.4,
+                              }}
+                              className="block whitespace-nowrap"
+                            >
+                              {success ? 'ed!' : loading ? 'ing…' : 'e Project'}
+                            </motion.span>
+                          </AnimatePresence>
+                        </div>
+                      </motion.div>
                     </LayoutGroup>
                   </motion.button>
                 </div>
