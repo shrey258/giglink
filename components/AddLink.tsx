@@ -20,59 +20,85 @@ export default function AddLink({ projectId }: { projectId: string }) {
   }
 
   return (
-    <div className="rounded-2xl border border-neutral-200 bg-white p-6 shadow-sm">
-      <h3 className="mb-4 font-semibold text-neutral-900">Add Resource</h3>
+    <div className="rounded-xl border border-neutral-200 bg-white p-5 shadow-sm">
+      <h3 className="mb-4 text-sm font-semibold tracking-tight text-neutral-900">
+        Add New Resource
+      </h3>
 
       <form
         id="add-link-form"
         action={handleSubmit}
-        className="flex flex-col gap-3"
+        className="flex flex-col gap-4"
       >
-        {/* Row 1: Title & Type */}
-        <div className="flex gap-3">
+        <div className="space-y-1.5">
+          <label className="text-xs font-medium text-neutral-500">Title</label>
           <input
             name="title"
             required
-            placeholder="Link Title (e.g. Figma File)"
-            className="flex-1 rounded-xl border border-neutral-200 bg-neutral-50 px-4 py-2 text-sm outline-none focus:border-blue-500 focus:bg-white"
+            placeholder="e.g. Figma File"
+            className="w-full rounded-lg border border-neutral-200 bg-neutral-50 px-3 py-2.5 text-sm outline-none transition-all focus:border-neutral-900 focus:bg-white focus:ring-1 focus:ring-neutral-900"
           />
-          <select
-            name="type"
-            className="rounded-xl border border-neutral-200 bg-neutral-50 px-4 py-2 text-sm outline-none focus:border-blue-500 focus:bg-white"
-          >
-            <option value="figma">Figma</option>
-            <option value="github">GitHub</option>
-            <option value="drive">Drive</option>
-            <option value="invoice">Invoice</option>
-            <option value="video">Video</option>
-            <option value="default">Website</option>
-          </select>
         </div>
 
-        {/* Row 2: URL & Submit */}
-        <div className="flex gap-3">
-          <div className="relative flex-1">
+        <div className="space-y-1.5">
+          <label className="text-xs font-medium text-neutral-500">Type</label>
+          <div className="relative">
+            <select
+              name="type"
+              className="w-full appearance-none rounded-lg border border-neutral-200 bg-neutral-50 px-3 py-2.5 text-sm outline-none transition-all focus:border-neutral-900 focus:bg-white focus:ring-1 focus:ring-neutral-900"
+            >
+              <option value="figma">Figma</option>
+              <option value="github">GitHub</option>
+              <option value="drive">Drive</option>
+              <option value="invoice">Invoice</option>
+              <option value="video">Video</option>
+              <option value="default">Website</option>
+            </select>
+            <div className="pointer-events-none absolute right-3 top-3 text-neutral-400">
+              <svg
+                width="10"
+                height="6"
+                viewBox="0 0 10 6"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M1 1L5 5L9 1"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <div className="space-y-1.5">
+          <label className="text-xs font-medium text-neutral-500">URL</label>
+          <div className="relative">
             <LinkIcon className="absolute left-3 top-2.5 h-4 w-4 text-neutral-400" />
             <input
               name="url"
               required
               type="url"
               placeholder="https://..."
-              className="w-full rounded-xl border border-neutral-200 bg-neutral-50 py-2 pl-9 pr-4 text-sm outline-none focus:border-blue-500 focus:bg-white"
+              className="w-full rounded-lg border border-neutral-200 bg-neutral-50 py-2.5 pl-9 pr-3 text-sm outline-none transition-all focus:border-neutral-900 focus:bg-white focus:ring-1 focus:ring-neutral-900"
             />
           </div>
-          <button
-            disabled={loading}
-            className="flex items-center gap-2 rounded-xl bg-neutral-900 px-4 py-2 text-sm font-medium text-white hover:bg-black disabled:opacity-50"
-          >
-            {loading ? (
-              <Loader2 className="h-4 w-4 animate-spin" />
-            ) : (
-              <Plus className="h-4 w-4" />
-            )}
-            Add
-          </button>
         </div>
+
+        <button
+          disabled={loading}
+          className="mt-2 flex w-full items-center justify-center gap-2 rounded-lg bg-neutral-900 py-2.5 text-sm font-medium text-white transition-all hover:bg-black disabled:opacity-70"
+        >
+          {loading ? (
+            <Loader2 className="h-4 w-4 animate-spin" />
+          ) : (
+            <Plus className="h-4 w-4" />
+          )}
+          Add Resource
+        </button>
       </form>
     </div>
   );

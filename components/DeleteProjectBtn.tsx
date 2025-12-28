@@ -36,14 +36,14 @@ export default function DeleteProjectBtn({
     <button
       onClick={handleDelete}
       disabled={loading}
-      className="flex items-center gap-2 rounded-xl border border-red-200 bg-red-50 px-4 py-2 text-sm font-medium text-red-600 transition-colors hover:bg-red-100 hover:border-red-300 disabled:opacity-50"
+      title="Delete Project"
+      className="rounded-lg p-2 text-neutral-400 hover:bg-red-50 hover:text-red-600 transition-colors disabled:opacity-50"
     >
       {loading ? (
-        <Loader2 className="h-4 w-4 animate-spin" />
+        <Loader2 className="h-5 w-5 animate-spin" />
       ) : (
-        <Trash2 className="h-4 w-4" />
+        <Trash2 className="h-5 w-5" />
       )}
-      Delete
     </button>
   );
 }
