@@ -25,24 +25,31 @@ export default async function ProjectPage({
   const { data: links } = await getProjectLinks(project.id, supabase);
 
   return (
-    <div className="min-h-screen bg-neutral-50 py-24 px-4">
-      <div className="mx-auto max-w-xl space-y-12">
-        {/* Header Section */}
-        <div className="space-y-2 text-center">
-          <div className="inline-block rounded-full bg-blue-100 px-3 py-1 text-xs font-semibold tracking-wider text-blue-700 uppercase">
+    <div className="min-h-screen bg-neutral-50 selection:bg-neutral-900 selection:text-white">
+      {/* Radial Gradient Glow */}
+      <div className="fixed inset-0 z-0 bg-[radial-gradient(ellipse_at_top,var(--tw-gradient-stops))] from-blue-50/50 via-transparent to-transparent pointer-events-none" />
+
+      {/* Content */}
+      <div className="relative z-10 mx-auto max-w-4xl px-6 py-24 sm:py-32">
+        {/* Header */}
+        <div className="mb-16 text-center space-y-4">
+          <p className="text-xs font-medium uppercase tracking-widest text-neutral-500">
             {project.client_name}
-          </div>
-          <h1 className="text-4xl font-bold tracking-tight text-neutral-900">
+          </p>
+          <h1 className="text-5xl font-bold tracking-tighter text-neutral-900 sm:text-6xl">
             {project.project_name}
           </h1>
+          <p className="text-lg text-neutral-500 font-medium">
+            Project Deliverables & Resources
+          </p>
         </div>
 
-        {/* Links Grid */}
-        <div className="flex flex-col gap-4">
+        {/* Grid */}
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
           {links?.map((link, index) => (
             <LinkCard
               key={link.id}
-              index={index} // Pass index for animation delay
+              index={index}
               title={link.title}
               url={link.url}
               type={link.type}
@@ -51,11 +58,11 @@ export default async function ProjectPage({
         </div>
 
         {/* Footer */}
-        <div className="mt-12 text-center opacity-60">
-          <p className="text-xs text-neutral-400">
-            Securely shared via{' '}
-            <span className="font-semibold text-neutral-600">GigLink</span>
-          </p>
+        <div className="mt-24 flex justify-center">
+          <div className="inline-flex items-center gap-1.5 rounded-full border border-neutral-200 bg-white/80 px-4 py-1.5 text-xs font-medium text-neutral-500 backdrop-blur-sm transition-colors hover:border-neutral-300 hover:text-neutral-900">
+            <span>Powered by</span>
+            <span className="font-semibold text-neutral-900">GigLink</span>
+          </div>
         </div>
       </div>
     </div>
