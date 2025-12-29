@@ -1,6 +1,13 @@
 'use client'; // Needed for Framer Motion
 
-import { ExternalLink, FileText, Figma, Github, Video, Link as LinkIcon } from 'lucide-react';
+import {
+  ExternalLink,
+  FileText,
+  Figma,
+  Github,
+  Video,
+  Link as LinkIcon,
+} from 'lucide-react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 

@@ -45,15 +45,12 @@ export default function ProjectCard({ project }: { project: Project }) {
             {project.client_name}
           </div>
           {/* Link to the public page */}
-          <object
-            className="relative z-10"
-            onClick={(e) => e.stopPropagation()}
-          >
+          <object className="relative z-10" onClick={e => e.stopPropagation()}>
             <Link
               href={`/p/${project.magic_slug}`}
               target="_blank"
               className="text-neutral-400 hover:text-blue-600"
-              onClick={(e) => e.stopPropagation()}
+              onClick={e => e.stopPropagation()}
             >
               <ExternalLink className="h-4 w-4" />
             </Link>
@@ -67,16 +64,12 @@ export default function ProjectCard({ project }: { project: Project }) {
       <div className="flex items-center justify-between border-t border-neutral-100 pt-4">
         <span
           className={`inline-flex items-center gap-1.5 text-xs font-medium ${
-            project.status === 'active'
-              ? 'text-green-600'
-              : 'text-neutral-500'
+            project.status === 'active' ? 'text-green-600' : 'text-neutral-500'
           }`}
         >
           <span
             className={`h-1.5 w-1.5 rounded-full ${
-              project.status === 'active'
-                ? 'bg-green-600'
-                : 'bg-neutral-300'
+              project.status === 'active' ? 'bg-green-600' : 'bg-neutral-300'
             }`}
           />
           {project.status.charAt(0).toUpperCase() + project.status.slice(1)}

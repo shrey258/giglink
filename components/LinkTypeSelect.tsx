@@ -19,7 +19,13 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 
-export type LinkTypeValue = 'figma' | 'github' | 'drive' | 'invoice' | 'video' | 'default';
+export type LinkTypeValue =
+  | 'figma'
+  | 'github'
+  | 'drive'
+  | 'invoice'
+  | 'video'
+  | 'default';
 
 export type LinkTypeOption = {
   value: LinkTypeValue;
@@ -75,7 +81,11 @@ interface LinkTypeSelectProps {
   onChange: (option: LinkTypeOption) => void;
 }
 
-export default function LinkTypeSelect({ value, options, onChange }: LinkTypeSelectProps) {
+export default function LinkTypeSelect({
+  value,
+  options,
+  onChange,
+}: LinkTypeSelectProps) {
   const [menuWidth, setMenuWidth] = useState(0);
   const triggerRef = useRef<HTMLButtonElement>(null);
 
@@ -118,7 +128,7 @@ export default function LinkTypeSelect({ value, options, onChange }: LinkTypeSel
         className="p-1"
         style={menuWidth ? { width: menuWidth } : undefined}
       >
-        {options.map((option) => {
+        {options.map(option => {
           const Icon = option.icon;
           const isActive = value.value === option.value;
 

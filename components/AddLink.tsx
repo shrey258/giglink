@@ -2,7 +2,13 @@
 
 import { useState } from 'react';
 import { createLink } from '@/app/actions';
-import { Plus, Loader2, Link as LinkIcon, Type, MousePointer2 } from 'lucide-react';
+import {
+  Plus,
+  Loader2,
+  Link as LinkIcon,
+  Type,
+  MousePointer2,
+} from 'lucide-react';
 import LinkTypeSelect, {
   linkTypeOptions,
   defaultLinkType,
@@ -16,21 +22,26 @@ interface FieldIdentityBadgeProps {
   className?: string;
 }
 
-function FieldIdentityBadge({ icon: Icon, className }: FieldIdentityBadgeProps) {
+function FieldIdentityBadge({
+  icon: Icon,
+  className,
+}: FieldIdentityBadgeProps) {
   return (
-    <div className={cn(
-      "flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-neutral-900 text-white shadow-sm transition-transform hover:scale-105",
-      className
-    )}>
+    <div
+      className={cn(
+        'flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-neutral-900 text-white shadow-sm transition-transform hover:scale-105',
+        className
+      )}
+    >
       <Icon className="h-4 w-4" />
     </div>
   );
 }
 
-
 export default function AddLink({ projectId }: { projectId: string }) {
   const [loading, setLoading] = useState(false);
-  const [selectedType, setSelectedType] = useState<LinkTypeOption>(defaultLinkType);
+  const [selectedType, setSelectedType] =
+    useState<LinkTypeOption>(defaultLinkType);
 
   async function handleSubmit(formData: FormData) {
     setLoading(true);
@@ -40,16 +51,29 @@ export default function AddLink({ projectId }: { projectId: string }) {
     setLoading(false);
 
     // Reset form (simple way)
-    const form = document.getElementById('add-link-form') as HTMLFormElement | null;
+    const form = document.getElementById(
+      'add-link-form'
+    ) as HTMLFormElement | null;
     form?.reset();
     setSelectedType(defaultLinkType);
   }
 
   return (
     <div className="rounded-xl border border-neutral-200 bg-white p-5 shadow-sm">
-      <h3 className="mb-4 text-sm font-semibold tracking-tight text-neutral-900">
+      {/* <h3 className="mb-4 text-sm font-semibold tracking-tight text-neutral-900">
         Add New Resource
-      </h3>
+      </h3> */}
+
+      <div className="mb-6 flex items-center justify-center">
+        <div className="flex -space-x-3">
+          <FieldIdentityBadge icon={LinkIcon} className="ring-4 ring-white" />
+          <FieldIdentityBadge icon={Type} className="ring-4 ring-white" />
+          <FieldIdentityBadge
+            icon={MousePointer2}
+            className="ring-4 ring-white"
+          />
+        </div>
+      </div>
 
       <form
         id="add-link-form"
