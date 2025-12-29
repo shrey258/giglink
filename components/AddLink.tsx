@@ -116,6 +116,20 @@ export default function AddLink({ projectId }: { projectId: string }) {
         className="flex flex-col gap-4"
       >
         <div className="space-y-1.5">
+          <label className="text-xs font-medium text-neutral-500">URL</label>
+          <div className="relative">
+            <LinkIcon className="absolute left-3 top-2.5 h-4 w-4 text-neutral-400" />
+            <input
+              name="url"
+              required
+              type="url"
+              placeholder="https://..."
+              className="w-full rounded-lg border border-neutral-200 bg-neutral-50 py-2.5 pl-9 pr-3 text-sm outline-none transition-all focus:border-neutral-900 focus:bg-white focus:ring-1 focus:ring-neutral-900"
+            />
+          </div>
+        </div>
+
+        <div className="space-y-1.5">
           <label className="text-xs font-medium text-neutral-500">Title</label>
           <input
             name="title"
@@ -175,20 +189,6 @@ export default function AddLink({ projectId }: { projectId: string }) {
               })}
             </DropdownMenuContent>
           </DropdownMenu>
-        </div>
-
-        <div className="space-y-1.5">
-          <label className="text-xs font-medium text-neutral-500">URL</label>
-          <div className="relative">
-            <LinkIcon className="absolute left-3 top-2.5 h-4 w-4 text-neutral-400" />
-            <input
-              name="url"
-              required
-              type="url"
-              placeholder="https://..."
-              className="w-full rounded-lg border border-neutral-200 bg-neutral-50 py-2.5 pl-9 pr-3 text-sm outline-none transition-all focus:border-neutral-900 focus:bg-white focus:ring-1 focus:ring-neutral-900"
-            />
-          </div>
         </div>
 
         <button
