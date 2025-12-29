@@ -2,7 +2,16 @@
 
 import { useEffect, useRef, useState } from 'react';
 import type { LucideIcon } from 'lucide-react';
-import { ChevronDown, Check } from 'lucide-react';
+import {
+  ChevronDown,
+  Check,
+  Figma,
+  Github,
+  Folder,
+  FileText,
+  Video,
+  Globe,
+} from 'lucide-react';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -18,6 +27,47 @@ export type LinkTypeOption = {
   description: string;
   icon: LucideIcon;
 };
+
+export const linkTypeOptions: LinkTypeOption[] = [
+  {
+    value: 'figma',
+    label: 'Figma',
+    description: 'Design files & prototypes',
+    icon: Figma,
+  },
+  {
+    value: 'github',
+    label: 'GitHub',
+    description: 'Repositories & PRs',
+    icon: Github,
+  },
+  {
+    value: 'drive',
+    label: 'Drive',
+    description: 'Google Drive folders',
+    icon: Folder,
+  },
+  {
+    value: 'invoice',
+    label: 'Invoice',
+    description: 'Billing docs & PDFs',
+    icon: FileText,
+  },
+  {
+    value: 'video',
+    label: 'Video',
+    description: 'Demos & walkthroughs',
+    icon: Video,
+  },
+  {
+    value: 'default',
+    label: 'Website',
+    description: 'Any external link',
+    icon: Globe,
+  },
+];
+
+export const defaultLinkType = linkTypeOptions[0];
 
 interface LinkTypeSelectProps {
   value: LinkTypeOption;

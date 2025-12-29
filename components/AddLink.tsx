@@ -2,63 +2,16 @@
 
 import { useState } from 'react';
 import { createLink } from '@/app/actions';
-import {
-  Plus,
-  Loader2,
-  Link as LinkIcon,
-  Figma,
-  Github,
-  Folder,
-  FileText,
-  Video,
-  Globe,
-} from 'lucide-react';
-import LinkTypeSelect, { type LinkTypeOption } from '@/components/LinkTypeSelect';
-
-const linkTypeOptions: LinkTypeOption[] = [
-  {
-    value: 'figma',
-    label: 'Figma',
-    description: 'Design files & prototypes',
-    icon: Figma,
-  },
-  {
-    value: 'github',
-    label: 'GitHub',
-    description: 'Repositories & PRs',
-    icon: Github,
-  },
-  {
-    value: 'drive',
-    label: 'Drive',
-    description: 'Google Drive folders',
-    icon: Folder,
-  },
-  {
-    value: 'invoice',
-    label: 'Invoice',
-    description: 'Billing docs & PDFs',
-    icon: FileText,
-  },
-  {
-    value: 'video',
-    label: 'Video',
-    description: 'Demos & walkthroughs',
-    icon: Video,
-  },
-  {
-    value: 'default',
-    label: 'Website',
-    description: 'Any external link',
-    icon: Globe,
-  },
-];
-
-const defaultType = linkTypeOptions[0];
+import { Plus, Loader2, Link as LinkIcon } from 'lucide-react';
+import LinkTypeSelect, {
+  linkTypeOptions,
+  defaultLinkType,
+  type LinkTypeOption,
+} from '@/components/LinkTypeSelect';
 
 export default function AddLink({ projectId }: { projectId: string }) {
   const [loading, setLoading] = useState(false);
-  const [selectedType, setSelectedType] = useState<LinkTypeOption>(defaultType);
+  const [selectedType, setSelectedType] = useState<LinkTypeOption>(defaultLinkType);
 
   async function handleSubmit(formData: FormData) {
     setLoading(true);
@@ -70,7 +23,7 @@ export default function AddLink({ projectId }: { projectId: string }) {
     // Reset form (simple way)
     const form = document.getElementById('add-link-form') as HTMLFormElement | null;
     form?.reset();
-    setSelectedType(defaultType);
+    setSelectedType(defaultLinkType);
   }
 
   return (
