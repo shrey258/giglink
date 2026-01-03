@@ -70,14 +70,6 @@ const widgetData = [
     badgeColor: 'bg-neutral-900',
     content: (
       <div className={`flex items-center gap-3 ${CONTENT_WIDTH}`}>
-        {/* 2. OPTIONAL TRICK: 
-           We add a invisible placeholder of the exact same size (w-10) 
-           as the badges above. This ensures the "Submit" button aligns 
-           perfectly with the inputs, rather than stretching full width.
-           If you WANT it full width, remove this empty div.
-        */}
-        {/* <div className="w-10 shrink-0" />  */}
-        
         <button
           type="button"
           className="h-10 flex-1 rounded-xl bg-neutral-900 text-white text-sm font-medium border border-neutral-900 shadow-sm flex items-center justify-center"
