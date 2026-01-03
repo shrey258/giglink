@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { ChevronRight, FolderOpen, Globe, Trash2 } from 'lucide-react';
 import AddLink from '@/components/AddLink';
+import PreviewCard from '@/components/PreviewCard';
 import DeleteProjectBtn from '@/components/DeleteProjectBtn';
 import FadeIn from '@/components/FadeIn';
 import { deleteLink } from '@/app/actions';
@@ -127,9 +128,13 @@ export default async function ProjectEditor({
           </div>
 
           {/* Right Column: Add Form */}
-          <div className="lg:col-span-1 sticky top-8 self-start">
+          <div className="lg:col-span-1 sticky top-8 space-y-6 self-start">
             <FadeIn delay={0.2}>
               <AddLink projectId={id} />
+            </FadeIn>
+
+            <FadeIn delay={0.3}>
+              <PreviewCard />
             </FadeIn>
           </div>
         </div>
