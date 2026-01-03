@@ -29,7 +29,7 @@ function FieldIdentityBadge({
   return (
     <div
       className={cn(
-        'flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-neutral-900 text-white shadow-sm transition-transform hover:scale-105',
+        'flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-neutral-900 text-white shadow-sm',
         className
       )}
     >
