@@ -62,13 +62,12 @@ export default async function ProjectEditor({
 
         <div className="grid gap-8 lg:grid-cols-3 items-start">
           {/* Left Column: Link List */}
-          <div className="space-y-6 lg:col-span-2">
+          <div className="lg:col-span-2 flex flex-col space-y-6">
             <FadeIn delay={0.1}>
-              <h1 className="text-2xl font-bold tracking-tight text-neutral-900">
+              <h1 className="text-2xl font-bold tracking-tight text-neutral-900 h-[38px] flex items-center">
                 Active Resources
               </h1>
             </FadeIn>
-
             {links?.length === 0 ? (
               <FadeIn delay={0.2}>
                 <div className="flex flex-col items-center justify-center rounded-2xl border-2 border-dashed border-neutral-200 bg-white/50 p-12 text-center">
@@ -128,7 +127,7 @@ export default async function ProjectEditor({
           </div>
 
           {/* Right Column: Add Form */}
-          <div className="lg:col-span-1 sticky top-8 space-y-6 self-start">
+          <div className="lg:col-span-1 sticky top-8 space-y-6 self-start pt-[62px]">
             <FadeIn delay={0.2}>
               <AddLink projectId={id} />
             </FadeIn>
