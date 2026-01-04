@@ -1,16 +1,17 @@
 'use client';
 
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, motion, MotionConfig } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { useState } from 'react';
+import useMeasure from 'react-use-measure';
 
 interface PreviewCardProps {
   className?: string;
 }
 
 // 1. Define a consistent width for inner content to prevent layout collapse
-const CONTENT_WIDTH = "w-[340px]"; 
+const CONTENT_WIDTH = 'w-[340px]';
 
 const widgetData = [
   {
@@ -83,61 +84,84 @@ const widgetData = [
 
 export default function PreviewCard({ className }: PreviewCardProps) {
   const [currentWidget, setCurrentWidget] = useState(0);
+  const [direction, setDirection] = useState(1);
+  const [ref, bounds] = useMeasure();
 
   return (
-    // 3. Add 'layout' to the parent container. 
-    // This tells Framer to smoothly animate any height/width changes of the white card itself.
-    <motion.div
-      layout
-      className={cn(
-        'rounded-xl border border-neutral-200 bg-white p-5 shadow-sm min-h-[300px] flex flex-col items-center justify-center space-y-6',
-        className
-      )}
-    >
-      <div className="flex -space-x-2 h-6">
-        {Array.from({ length: currentWidget }).map((_, index) => (
-          <motion.div
-            key={widgetData[index].id}
-            layoutId={`badge-${widgetData[index].id}`}
-            className={cn(
-              "h-6 w-6 rounded-full ring-2 ring-white shadow-sm",
-              widgetData[index].badgeColor
-            )}
-          />
-        ))}
-      </div>
+    <MotionConfig transition={{ duration: 0.5, type: 'spring', bounce: 0 }}>
+      <motion.div
+        animate={{ height: bounds.height > 0 ? bounds.height : 'auto' }}
+        className={cn(
+          'rounded-xl border border-neutral-200 bg-white shadow-sm overflow-hidden',
+          className
+        )}
+      >
+        <div ref={ref} className="p-5 flex flex-col items-center justify-center space-y-12">
+          <div className="flex -space-x-2 h-6">
+            {Array.from({ length: currentWidget }).map((_, index) => (
+              <motion.div
+                key={widgetData[index].id}
+                layoutId={`badge-${widgetData[index].id}`}
+                className={cn(
+                  'h-6 w-6 rounded-full ring-2 ring-white shadow-sm',
+                  widgetData[index].badgeColor
+                )}
+              />
+            ))}
+          </div>
 
-      <AnimatePresence mode="popLayout"> 
-        <motion.div
-          key={currentWidget}
-          // 4. Use 'y' instead of 'transform' string
-          initial={{ opacity: 0, transform: 'translateY(100%)' }}
-          animate={{ opacity: 1, transform:'translateY(0)' }}
-          exit={{ scale: 0.9, opacity: 0, transform:'translateY(-100%)' }} // Scale 0 is too aggressive, 0.9 feels smoother
-          transition={{ duration: 0.5, ease: "easeInOut" }}
-          // 5. Ensure this container doesn't shrink during animation
-          className="flex items-center justify-center w-full" 
-        >
-          {widgetData[currentWidget].content}
-        </motion.div>
-      </AnimatePresence>
+          <div className="relative flex items-center justify-center w-full">
+            <AnimatePresence mode="popLayout" initial={false} custom={direction}>
+              <motion.div
+                key={currentWidget}
+                variants={variants}
+                initial="initial"
+                animate="active"
+                exit="exit"
+                custom={direction}
+                className="flex items-center justify-center w-full"
+              >
+                {widgetData[currentWidget].content}
+              </motion.div>
+            </AnimatePresence>
+          </div>
 
-      <div className="flex items-center gap-2">
-        <button
-          type="button"
-          onClick={() => setCurrentWidget((prev) => (prev - 1 + widgetData.length) % widgetData.length)}
-          className="flex h-8 w-8 items-center justify-center rounded-full border border-neutral-200 bg-white text-neutral-500 shadow-sm transition-all hover:bg-neutral-50 hover:text-neutral-900 active:scale-95"
-        >
-          <ArrowLeft className="h-4 w-4" />
-        </button>
-        <button
-          type="button"
-          onClick={() => setCurrentWidget((prev) => (prev + 1) % widgetData.length)}
-          className="flex h-8 w-8 items-center justify-center rounded-full border border-neutral-200 bg-white text-neutral-500 shadow-sm transition-all hover:bg-neutral-50 hover:text-neutral-900 active:scale-95"
-        >
-          <ArrowRight className="h-4 w-4" />
-        </button>
-      </div>
-    </motion.div>
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              disabled={currentWidget === 0}
+              onClick={() => {
+                setDirection(-1);
+                setCurrentWidget((prev) => Math.max(0, prev - 1));
+              }}
+              className="flex h-8 w-8 items-center justify-center rounded-full border border-neutral-200 bg-white text-neutral-500 shadow-sm transition-all hover:bg-neutral-50 hover:text-neutral-900 active:scale-95 disabled:opacity-30 disabled:pointer-events-none"
+            >
+              <ArrowLeft className="h-4 w-4" />
+            </button>
+            <button
+              type="button"
+              disabled={currentWidget === widgetData.length - 1}
+              onClick={() => {
+                setDirection(1);
+                setCurrentWidget((prev) => Math.min(widgetData.length - 1, prev + 1));
+              }}
+              className="flex h-8 w-8 items-center justify-center rounded-full border border-neutral-200 bg-white text-neutral-500 shadow-sm transition-all hover:bg-neutral-50 hover:text-neutral-900 active:scale-95 disabled:opacity-30 disabled:pointer-events-none"
+            >
+              <ArrowRight className="h-4 w-4" />
+            </button>
+          </div>
+        </div>
+      </motion.div>
+    </MotionConfig>
   );
 }
+
+const variants = {
+  initial: (direction: number) => {
+    return { y: `${110 * direction}%`, opacity: 0 };
+  },
+  active: { y: '0%', opacity: 1 },
+  exit: (direction: number) => {
+    return { y: `${-110 * direction}%`, opacity: 0 };
+  },
+};
