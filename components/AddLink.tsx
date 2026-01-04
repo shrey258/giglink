@@ -108,21 +108,21 @@ export default function AddLink({ projectId }: { projectId: string }) {
     },
     {
       id: 'submit',
-      label: 'Submit',
+      label: 'Finish',
       icon: Plus,
       content: (
-        <div className="flex items-center gap-4 w-full">
+        <div className="flex flex-col items-center justify-center w-full py-4">
           <button
             type="submit"
             disabled={loading}
-            className="flex flex-1 h-10 items-center justify-center gap-2 rounded-full bg-neutral-900 text-[13px] font-medium text-white transition-colors hover:bg-neutral-800 disabled:opacity-50"
+            className="group relative flex items-center justify-center gap-2 rounded-full bg-neutral-900 px-12 py-4 text-[15px] font-semibold text-white shadow-2xl transition-all hover:bg-black hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:scale-100 ring-8 ring-neutral-50"
           >
             {loading ? (
-              <Loader2 className="h-4 w-4 animate-spin" />
+              <Loader2 className="h-5 w-5 animate-spin" />
             ) : (
-              <Plus className="h-4 w-4" />
+              <Plus className="h-5 w-5 transition-transform group-hover:rotate-90" />
             )}
-            Add Resource
+            <span>Add Resource</span>
           </button>
         </div>
       ),
