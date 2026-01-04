@@ -112,7 +112,7 @@ export default function PreviewCard({ className }: PreviewCardProps) {
   }, [handleNext, handleBack]);
 
   return (
-    <MotionConfig transition={{ duration: 0.5, type: 'spring', bounce: 0 }}>
+    <MotionConfig transition={{ duration: 0.5, type: 'spring', bounce: 0.25 }}>
       <motion.div
         animate={{ height: bounds.height > 0 ? bounds.height : 'auto' }}
         className={cn(
@@ -124,7 +124,7 @@ export default function PreviewCard({ className }: PreviewCardProps) {
           ref={ref}
           className="p-5 flex flex-col items-center justify-center space-y-12"
         >
-          <div className="flex -space-x-2 h-6">
+          <motion.div layout className="flex -space-x-2 h-6">
             {Array.from({ length: currentWidget }).map((_, index) => (
               <motion.div
                 key={widgetData[index].id}
@@ -135,7 +135,7 @@ export default function PreviewCard({ className }: PreviewCardProps) {
                 )}
               />
             ))}
-          </div>
+          </motion.div>
 
           <div className="relative flex items-center justify-center w-full">
             <AnimatePresence
@@ -183,10 +183,10 @@ export default function PreviewCard({ className }: PreviewCardProps) {
 
 const variants = {
   initial: (direction: number) => {
-    return { y: `${110 * direction}%`, opacity: 0 };
+    return { y: `${110 * direction}%`, opacity: 0 , filter: 'blur(10px)'};
   },
-  active: { y: '0%', opacity: 1 },
+  active: { y: '0%', opacity: 1 , filter: 'blur(0px)'},
   exit: (direction: number) => {
-    return { y: `${-110 * direction}%`, opacity: 0 };
+    return { y: `${-110 * direction}%`, opacity: 0 , filter: 'blur(10px)'};
   },
 };
