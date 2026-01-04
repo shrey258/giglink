@@ -133,9 +133,9 @@ export default async function ProjectEditor({
               <AddLink projectId={id} />
             </FadeIn>
 
-            <FadeIn delay={0.3}>
+            {/* <FadeIn delay={0.3}>
               <PreviewCard />
-            </FadeIn>
+            </FadeIn> */}
           </div>
         </div>
       </div>
