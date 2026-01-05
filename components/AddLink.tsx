@@ -16,7 +16,6 @@ import LinkTypeSelect, {
   defaultLinkType,
   type LinkTypeOption,
 } from '@/components/LinkTypeSelect';
-import { cn } from '@/lib/utils';
 import { motion, AnimatePresence, MotionConfig } from 'framer-motion';
 import useMeasure from 'react-use-measure';
 
@@ -32,7 +31,8 @@ const variants = {
 
 export default function AddLink({ projectId }: { projectId: string }) {
   const [loading, setLoading] = useState(false);
-  const [selectedType, setSelectedType] = useState<LinkTypeOption>(defaultLinkType);
+  const [selectedType, setSelectedType] =
+    useState<LinkTypeOption>(defaultLinkType);
   const [currentStep, setCurrentStep] = useState(0);
   const [direction, setDirection] = useState(1);
   const [ref, bounds] = useMeasure();
@@ -132,14 +132,14 @@ export default function AddLink({ projectId }: { projectId: string }) {
   const handleNext = useCallback(() => {
     if (currentStep < steps.length - 1) {
       setDirection(1);
-      setCurrentStep((prev) => prev + 1);
+      setCurrentStep(prev => prev + 1);
     }
   }, [currentStep, steps.length]);
 
   const handleBack = useCallback(() => {
     if (currentStep > 0) {
       setDirection(-1);
-      setCurrentStep((prev) => prev - 1);
+      setCurrentStep(prev => prev - 1);
     }
   }, [currentStep]);
 
@@ -171,30 +171,37 @@ export default function AddLink({ projectId }: { projectId: string }) {
                 Step {currentStep + 1}/{steps.length}
               </p>
             </div>
-            
+
             <div className="absolute left-1/2 -translate-x-1/2 flex items-center justify-center">
               <motion.div layout className="flex -space-x-2 h-6 items-center">
-                  {Array.from({ length: currentStep }).map((_, index) => {
-                    const StepIcon = steps[index].icon;
-                    return (
-                      <motion.div
-                        key={steps[index].id}
-                        layoutId={`badge-${steps[index].id}`}
-                        className="h-6 w-6 rounded-full ring-2 ring-white shadow-sm bg-neutral-900 flex items-center justify-center text-white"
-                      >
-                        <StepIcon className="h-2.5 w-2.5" />
-                      </motion.div>
-                    );
-                  })}
+                {Array.from({ length: currentStep }).map((_, index) => {
+                  const StepIcon = steps[index].icon;
+                  return (
+                    <motion.div
+                      key={steps[index].id}
+                      layoutId={`badge-${steps[index].id}`}
+                      className="h-6 w-6 rounded-full ring-2 ring-white shadow-sm bg-neutral-900 flex items-center justify-center text-white"
+                    >
+                      <StepIcon className="h-2.5 w-2.5" />
+                    </motion.div>
+                  );
+                })}
               </motion.div>
             </div>
 
             <div className="min-w-[80px]" />
           </div>
 
-          <form action={handleSubmit} className="w-full flex flex-col items-center gap-8">
+          <form
+            action={handleSubmit}
+            className="w-full flex flex-col items-center gap-8"
+          >
             <div className="relative flex items-center justify-center w-full min-h-[40px]">
-              <AnimatePresence mode="popLayout" initial={false} custom={direction}>
+              <AnimatePresence
+                mode="popLayout"
+                initial={false}
+                custom={direction}
+              >
                 <motion.div
                   key={currentStep}
                   variants={variants}

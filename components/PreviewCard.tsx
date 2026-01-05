@@ -183,10 +183,10 @@ export default function PreviewCard({ className }: PreviewCardProps) {
 
 const variants = {
   initial: (direction: number) => {
-    return { y: `${110 * direction}%`, opacity: 0 , filter: 'blur(10px)'};
+    return { y: `${110 * direction}%`, opacity: 0, filter: 'blur(10px)' };
   },
-  active: { y: '0%', opacity: 1 , filter: 'blur(0px)'},
+  active: { y: '0%', opacity: 1, filter: 'blur(0px)' },
   exit: (direction: number) => {
-    return { y: `${-110 * direction}%`, opacity: 0 , filter: 'blur(10px)'};
+    return { y: `${-110 * direction}%`, opacity: 0, filter: 'blur(10px)' };
   },
 };
