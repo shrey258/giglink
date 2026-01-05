@@ -1,11 +1,12 @@
 import { createClient } from '@/lib/supabase-server';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
-import { ChevronRight, FolderOpen, Globe, Trash2 } from 'lucide-react';
+import { ChevronRight, FolderOpen, Globe } from 'lucide-react';
 import AddLink from '@/components/AddLink';
+import PreviewCard from '@/components/PreviewCard';
 import DeleteProjectBtn from '@/components/DeleteProjectBtn';
 import FadeIn from '@/components/FadeIn';
-import { deleteLink } from '@/app/actions';
+import LinkCard from '@/components/LinkCard';
 import { getProjectById, getProjectLinks } from '@/lib/queries/projects';
 
 export default async function ProjectEditor({
@@ -61,16 +62,15 @@ export default async function ProjectEditor({
 
         <div className="grid gap-8 lg:grid-cols-3 items-start">
           {/* Left Column: Link List */}
-          <div className="space-y-6 lg:col-span-2">
+          <div className="lg:col-span-2 flex flex-col space-y-6">
             <FadeIn delay={0.1}>
-              <h1 className="text-2xl font-bold tracking-tight text-neutral-900">
+              <h1 className="text-2xl font-bold tracking-tight text-neutral-900 h-[38px] flex items-center">
                 Active Resources
               </h1>
             </FadeIn>
-
             {links?.length === 0 ? (
               <FadeIn delay={0.2}>
-                <div className="flex flex-col items-center justify-center rounded-2xl border-2 border-dashed border-neutral-200 bg-white/50 p-12 text-center">
+                <div className="flex h-full min-h-[220px] flex-col items-center justify-center rounded-2xl border-2 border-dashed border-neutral-200 bg-white/50 p-12 text-center">
                   <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-neutral-100 text-neutral-400">
                     <FolderOpen className="h-6 w-6" />
                   </div>
@@ -84,53 +84,32 @@ export default async function ProjectEditor({
                 </div>
               </FadeIn>
             ) : (
-              <div className="space-y-3">
+              <div className="grid gap-4 sm:grid-cols-2">
                 {links?.map((link, index) => (
-                  <FadeIn key={link.id} delay={0.1 + index * 0.05}>
-                    <div className="group flex items-center justify-between rounded-xl border border-neutral-200 bg-white p-4 shadow-sm transition-all hover:border-neutral-300 hover:shadow-md">
-                      <a
-                        href={link.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex min-w-0 flex-1 items-center gap-4"
-                      >
-                        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-neutral-100 text-xs font-bold uppercase text-neutral-500 transition-colors group-hover:bg-blue-50 group-hover:text-blue-600">
-                          {link.type.slice(0, 2)}
-                        </div>
-                        <div className="min-w-0 flex-1">
-                          <h3 className="truncate font-medium text-neutral-900 transition-colors group-hover:text-blue-600">
-                            {link.title}
-                          </h3>
-                          <p className="truncate text-xs text-neutral-400">
-                            {link.url}
-                          </p>
-                        </div>
-                      </a>
-
-                      {/* Delete Button (Wrapped in a Form for Server Action) */}
-                      <form
-                        action={async () => {
-                          'use server';
-                          await deleteLink(link.id, id);
-                        }}
-                        className="ml-4"
-                      >
-                        <button className="rounded-lg p-2 text-neutral-300 opacity-0 transition-all hover:bg-red-50 hover:text-red-600 group-hover:opacity-100 focus:opacity-100">
-                          <Trash2 className="h-4 w-4" />
-                        </button>
-                      </form>
-                    </div>
-                  </FadeIn>
+                  <LinkCard
+                    key={link.id}
+                    id={link.id}
+                    projectId={id}
+                    title={link.title}
+                    url={link.url}
+                    type={link.type}
+                    index={index}
+                    isEditable={true}
+                  />
                 ))}
               </div>
             )}
           </div>
 
           {/* Right Column: Add Form */}
-          <div className="lg:col-span-1 sticky top-8 self-start">
+          <div className="lg:col-span-1 sticky top-8 space-y-6 self-start pt-[62px]">
             <FadeIn delay={0.2}>
               <AddLink projectId={id} />
             </FadeIn>
+
+            {/* <FadeIn delay={0.3}>
+              <PreviewCard />
+            </FadeIn> */}
           </div>
         </div>
       </div>

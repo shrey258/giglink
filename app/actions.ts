@@ -84,6 +84,12 @@ export async function createLink(formData: FormData) {
   return { success: true };
 }
 
+export async function deleteLinkAction(formData: FormData): Promise<void> {
+  const linkId = formData.get('linkId') as string;
+  const projectId = formData.get('projectId') as string;
+  await deleteLink(linkId, projectId);
+}
+
 export async function deleteLink(linkId: string, projectId: string) {
   const supabase = await createClient();
 
