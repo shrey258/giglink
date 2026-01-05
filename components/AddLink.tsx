@@ -99,9 +99,18 @@ export default function AddLink({ projectId }: { projectId: string }) {
             />
           </div>
           {errors.url && (
-            <p className="ml-14 text-[11px] font-medium text-red-500">
-              {errors.url}
-            </p>
+            <AnimatePresence>
+              <motion.p
+                key="url-error"
+                initial={{ opacity: 0, x: -100 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -100 }}
+                transition={{ duration: 0.2, ease: [0.215, 0.61, 0.355, 1] }}
+                className="ml-14 text-[11px] font-medium text-red-500"
+              >
+                {errors.url}
+              </motion.p>
+            </AnimatePresence>
           )}
         </div>
       ),
@@ -134,9 +143,18 @@ export default function AddLink({ projectId }: { projectId: string }) {
             />
           </div>
           {errors.title && (
-            <p className="ml-14 text-[11px] font-medium text-red-500">
-              {errors.title}
-            </p>
+            <AnimatePresence>
+              <motion.p
+                key="title-error"
+                initial={{ opacity: 0, x: -100 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -100 }}
+                transition={{ duration: 0.2, ease: [0.215, 0.61, 0.355, 1] }}
+                className="ml-14 text-[11px] font-medium text-red-500"
+              >
+                {errors.title}
+              </motion.p>
+            </AnimatePresence>
           )}
         </div>
       ),
