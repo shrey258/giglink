@@ -8,9 +8,12 @@ import {
   Video,
   Link as LinkIcon,
   Trash2,
+  Loader2,
 } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useState, useRef, useEffect } from 'react';
 import { deleteLinkAction } from '@/app/actions';
+import { cn } from '@/lib/utils';
 
 // 1. Map types to Icons and Colors
 const iconMap = {
@@ -70,8 +73,37 @@ export default function LinkCard({
   index,
   isEditable = false,
 }: LinkCardProps) {
+  const [showConfirm, setShowConfirm] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const confirmTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
   const style = iconMap[type as keyof typeof iconMap] || iconMap.default;
   const Icon = style.icon;
+
+  const handleDelete = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!showConfirm) {
+      setShowConfirm(true);
+      if (confirmTimeoutRef.current) clearTimeout(confirmTimeoutRef.current);
+      confirmTimeoutRef.current = setTimeout(() => setShowConfirm(false), 3000);
+      return;
+    }
+
+    setIsDeleting(true);
+    const formData = new FormData();
+    formData.append('linkId', id);
+    formData.append('projectId', projectId);
+    await deleteLinkAction(formData);
+    // Component will unmount after deletion usually, but reset just in case
+    setIsDeleting(false);
+    setShowConfirm(false);
+  };
+
+  useEffect(() => {
+    return () => {
+      if (confirmTimeoutRef.current) clearTimeout(confirmTimeoutRef.current);
+    };
+  }, []);
 
   // Format URL for display (strip protocol and www)
   const displayUrl = url.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '');
@@ -100,15 +132,48 @@ export default function LinkCard({
 
           <div className="flex items-center gap-1">
             {isEditable && (
-              <form
-                action={async (formData: FormData) => {
-                  await deleteLinkAction(formData);
-                }}
-              >
-                <input type="hidden" name="linkId" value={id} />
-                <input type="hidden" name="projectId" value={projectId} />
-                <button className="rounded-lg p-2 text-neutral-300 transition-all hover:bg-red-50 hover:text-red-500 opacity-0 group-hover:opacity-100">
-                  <Trash2 className="h-4 w-4" />
+              <form onSubmit={handleDelete} className="relative">
+                <button
+                  type="submit"
+                  disabled={isDeleting}
+                  className={cn(
+                    'relative flex items-center justify-center rounded-lg px-2 py-2 transition-all duration-200',
+                    showConfirm
+                      ? 'bg-red-500 px-3 text-white opacity-100'
+                      : 'text-neutral-300 opacity-0 group-hover:opacity-100 hover:bg-red-50 hover:text-red-500'
+                  )}
+                >
+                  <AnimatePresence mode="popLayout" initial={false}>
+                    {isDeleting ? (
+                      <motion.div
+                        key="deleting"
+                        initial={{ opacity: 0, y: 5 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -5 }}
+                      >
+                        <Loader2 className="h-4 w-4 animate-spin" />
+                      </motion.div>
+                    ) : showConfirm ? (
+                      <motion.span
+                        key="confirm"
+                        initial={{ opacity: 0, y: 5 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -5 }}
+                        className="text-[10px] font-bold uppercase tracking-wider"
+                      >
+                        Sure?
+                      </motion.span>
+                    ) : (
+                      <motion.div
+                        key="trash"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -5 }}
+                      >
+                        <Trash2 className="h-4 w-4" />
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
                 </button>
               </form>
             )}
