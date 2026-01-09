@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { ExternalLink, ArrowRight } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 interface PortalLinkCardProps {
@@ -84,36 +84,71 @@ export default function PortalLinkCard({ title, url, type, index }: PortalLinkCa
   const style = iconMap[type.toLowerCase()] || iconMap.default;
   const displayUrl = url.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '');
 
-  // Fallback illustrations based on type
+  // Premium illustrations based on type
   const renderFallback = () => {
     switch (type.toLowerCase()) {
       case 'figma':
         return (
-          <div className="relative h-full w-full overflow-hidden bg-white">
-            <div className="absolute inset-0 opacity-[0.4]" 
-                 style={{ 
-                   backgroundImage: 'radial-gradient(circle at 20% 20%, #F24E1E 0%, transparent 40%), radial-gradient(circle at 80% 80%, #A259FF 0%, transparent 40%), radial-gradient(circle at 50% 50%, #1ABCFE 0%, transparent 50%)' 
-                 }} 
-            />
+          <div className="relative h-full w-full overflow-hidden bg-gradient-to-br from-[#1E1E1E] to-[#2C2C2C]">
+            {/* Noise texture overlay */}
+            <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 256 256\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noise\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.9\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noise)\'/%3E%3C/svg%3E")' }} />
+            
+            {/* Layered geometric shapes */}
+            <div className="absolute top-[15%] left-[10%] h-20 w-20 rounded-2xl bg-[#F24E1E]/80 blur-[1px] transform rotate-12 transition-transform duration-700 group-hover:rotate-6" />
+            <div className="absolute top-[25%] left-[20%] h-16 w-16 rounded-xl bg-[#A259FF]/70 blur-[0.5px] transform -rotate-6 transition-transform duration-700 group-hover:rotate-0" />
+            <div className="absolute bottom-[20%] right-[15%] h-14 w-14 rounded-lg bg-[#1ABCFE]/60 blur-[0.5px] transform rotate-45 transition-transform duration-700 group-hover:rotate-[50deg]" />
+            <div className="absolute bottom-[30%] right-[25%] h-12 w-12 rounded-md bg-[#0ACF83]/50 blur-[0.5px] transition-transform duration-700 group-hover:scale-110" />
+            
+            {/* Connection lines (design nodes metaphor) */}
+            <svg className="absolute inset-0 h-full w-full opacity-30" viewBox="0 0 100 100" preserveAspectRatio="none">
+              <line x1="25" y1="30" x2="75" y2="70" stroke="white" strokeWidth="0.3" strokeDasharray="2,2" />
+              <line x1="20" y1="60" x2="80" y2="40" stroke="white" strokeWidth="0.3" strokeDasharray="2,2" />
+              <circle cx="25" cy="30" r="2" fill="white" opacity="0.5" />
+              <circle cx="75" cy="70" r="2" fill="white" opacity="0.5" />
+            </svg>
+            
+            {/* Central logo with glass effect */}
             <div className="absolute inset-0 flex items-center justify-center">
-              <div className="h-16 w-16 drop-shadow-2xl transition-transform duration-700 group-hover:scale-110 group-hover:rotate-6">
-                {style.icon}
+              <div className="relative flex h-16 w-16 items-center justify-center rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 shadow-2xl transition-transform duration-500 group-hover:scale-110">
+                <svg width="32" height="32" viewBox="0 0 38 57" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M19 28.5C19 23.5 23 19 28 19S37 23.5 37 28.5 33 38 28 38 19 33.5 19 28.5Z" fill="#1ABCFE"/>
+                  <path d="M1 47C1 42 5 38 10 38H19V57H10C5 57 1 53 1 48V47Z" fill="#0ACF83"/>
+                  <path d="M1 28.5C1 23.5 5 19 10 19H19V38H10C5 38 1 33.5 1 28.5Z" fill="#A259FF"/>
+                  <path d="M1 10C1 5 5 1 10 1H19V19H10C5 19 1 15 1 10Z" fill="#F24E1E"/>
+                  <path d="M19 1H28C33 1 37 5 37 10S33 19 28 19H19V1Z" fill="#FF7262"/>
+                </svg>
               </div>
             </div>
           </div>
         );
       case 'github':
         return (
-          <div className="relative h-full w-full overflow-hidden bg-[#24292F]">
-            <div className="absolute inset-0 opacity-20" 
-                 style={{ 
-                   backgroundImage: 'linear-gradient(45deg, #0969DA 12.5%, transparent 12.5%, transparent 50%, #0969DA 50%, #0969DA 62.5%, transparent 62.5%, transparent 100%)',
-                   backgroundSize: '40px 40px'
-                 }} 
-            />
+          <div className="relative h-full w-full overflow-hidden bg-gradient-to-br from-[#0D1117] via-[#161B22] to-[#21262D]">
+            {/* Contribution graph pattern */}
+            <div className="absolute inset-0 grid grid-cols-7 gap-1 p-4 opacity-40">
+              {[...Array(49)].map((_, i) => (
+                <div 
+                  key={i} 
+                  className="aspect-square rounded-sm transition-all duration-500"
+                  style={{ 
+                    backgroundColor: `rgba(57, 211, 83, ${Math.random() * 0.8})`,
+                    transitionDelay: `${i * 20}ms`
+                  }}
+                />
+              ))}
+            </div>
+            
+            {/* Radial glow */}
+            <div className="absolute inset-0 bg-gradient-radial from-[#238636]/20 via-transparent to-transparent" style={{ background: 'radial-gradient(circle at 50% 50%, rgba(35, 134, 54, 0.15) 0%, transparent 60%)' }} />
+            
+            {/* Code brackets decoration */}
+            <div className="absolute top-4 left-4 text-[#8B949E]/30 font-mono text-2xl">{'{'}</div>
+            <div className="absolute bottom-4 right-4 text-[#8B949E]/30 font-mono text-2xl">{'}'}</div>
+            
+            {/* Central Octocat logo */}
             <div className="absolute inset-0 flex items-center justify-center">
-              <div className="h-16 w-16 drop-shadow-2xl transition-transform duration-700 group-hover:scale-110">
-                <svg width="64" height="64" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+              <div className="relative flex h-20 w-20 items-center justify-center rounded-full bg-white/5 backdrop-blur-sm border border-white/10 shadow-2xl transition-all duration-500 group-hover:scale-110 group-hover:bg-white/10">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
                   <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
                 </svg>
               </div>
@@ -122,18 +157,32 @@ export default function PortalLinkCard({ title, url, type, index }: PortalLinkCa
         );
       case 'drive':
         return (
-          <div className="relative h-full w-full overflow-hidden bg-neutral-50">
-            <div className="absolute inset-0 opacity-[0.1]" 
-                 style={{ 
-                   backgroundImage: 'radial-gradient(circle at center, #4285F4 0%, transparent 70%)' 
-                 }} 
-            />
+          <div className="relative h-full w-full overflow-hidden bg-gradient-to-br from-white via-slate-50 to-slate-100">
+            {/* Layered folder planes */}
+            <div className="absolute top-[20%] left-[15%] h-24 w-32 rounded-lg bg-white shadow-lg border border-slate-200/50 transform -rotate-6 transition-transform duration-500 group-hover:-rotate-3" />
+            <div className="absolute top-[25%] left-[20%] h-24 w-32 rounded-lg bg-white shadow-xl border border-slate-200/50 transform rotate-3 transition-transform duration-500 group-hover:rotate-6" />
+            
+            {/* Tri-color accent bar */}
+            <div className="absolute bottom-[25%] left-[10%] right-[10%] h-1 flex gap-1 rounded-full overflow-hidden">
+              <div className="flex-1 bg-[#4285F4]" />
+              <div className="flex-1 bg-[#34A853]" />
+              <div className="flex-1 bg-[#FBBC05]" />
+            </div>
+            
+            {/* Decorative dots */}
+            <div className="absolute top-4 right-4 flex gap-1.5">
+              <div className="h-2 w-2 rounded-full bg-[#4285F4]/40" />
+              <div className="h-2 w-2 rounded-full bg-[#34A853]/40" />
+              <div className="h-2 w-2 rounded-full bg-[#FBBC05]/40" />
+            </div>
+            
+            {/* Central Drive logo */}
             <div className="absolute inset-0 flex items-center justify-center">
-              <div className="h-20 w-20 drop-shadow-xl transition-transform duration-700 group-hover:scale-110 group-hover:-rotate-3">
-                <svg width="80" height="80" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M7.71 3.502L1.156 14.874L4.293 20.311L10.843 8.943L7.71 3.502Z" fill="#34A853" />
-                  <path d="M16.29 3.502H9.71L12.843 8.943L19.426 8.943L16.29 3.502Z" fill="#4285F4" />
-                  <path d="M12.843 14.874H22.844L19.707 9.432H9.71L12.843 14.874Z" fill="#FBBC05" />
+              <div className="relative flex h-16 w-16 items-center justify-center rounded-2xl bg-white shadow-2xl border border-slate-200/80 transition-all duration-500 group-hover:scale-110 group-hover:shadow-3xl">
+                <svg width="36" height="36" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M4.5 15L8 8.5L12 15H4.5Z" fill="#4285F4"/>
+                  <path d="M8 8.5L12 15L15.5 8.5H8Z" fill="#34A853"/>
+                  <path d="M12 15H19.5L15.5 8.5L12 15Z" fill="#FBBC05"/>
                 </svg>
               </div>
             </div>
@@ -141,49 +190,94 @@ export default function PortalLinkCard({ title, url, type, index }: PortalLinkCa
         );
       case 'video':
         return (
-          <div className="relative h-full w-full overflow-hidden bg-pink-50">
-            <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-pink-200/30 to-transparent" />
+          <div className="relative h-full w-full overflow-hidden bg-gradient-to-br from-[#F9A8D4] via-[#EC4899] to-[#BE185D]">
+            {/* Noise texture */}
+            <div className="absolute inset-0 opacity-[0.08]" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 256 256\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noise\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.8\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noise)\'/%3E%3C/svg%3E")' }} />
+            
+            {/* Waveform bars */}
+            <div className="absolute bottom-[30%] left-[15%] right-[15%] flex items-end justify-center gap-1 h-12">
+              {[0.4, 0.7, 1, 0.5, 0.8, 0.6, 0.9, 0.5, 0.7, 0.4].map((h, i) => (
+                <div 
+                  key={i} 
+                  className="w-2 bg-white/40 rounded-full transition-all duration-300"
+                  style={{ 
+                    height: `${h * 100}%`,
+                    animationDelay: `${i * 100}ms`
+                  }}
+                />
+              ))}
+            </div>
+            
+            {/* Record indicator */}
+            <div className="absolute top-4 right-4 flex items-center gap-2">
+              <div className="h-3 w-3 rounded-full bg-white animate-pulse" />
+              <span className="text-white/80 text-xs font-medium">REC</span>
+            </div>
+            
+            {/* Central play button with glass effect */}
             <div className="absolute inset-0 flex items-center justify-center">
-              <div className="relative h-16 w-24 bg-white rounded-xl shadow-2xl flex items-center justify-center transition-transform duration-700 group-hover:scale-110">
-                <div className="h-0 w-0 border-t-[10px] border-t-transparent border-l-[16px] border-l-pink-600 border-b-[10px] border-b-transparent ml-1" />
-                <div className="absolute -bottom-1 -right-1 h-6 w-6 rounded-full bg-pink-100 flex items-center justify-center">
-                   <div className="h-2 w-2 rounded-full bg-pink-600 animate-pulse" />
-                </div>
+              <div className="relative flex h-20 w-20 items-center justify-center rounded-full bg-white/20 backdrop-blur-md border border-white/30 shadow-2xl transition-all duration-500 group-hover:scale-110 group-hover:bg-white/30">
+                <div className="h-0 w-0 border-t-[14px] border-t-transparent border-l-[22px] border-l-white border-b-[14px] border-b-transparent ml-1.5" />
               </div>
             </div>
           </div>
         );
       case 'invoice':
         return (
-          <div className="relative h-full w-full overflow-hidden bg-emerald-50">
-             <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-white to-transparent opacity-60" />
-             <div className="absolute inset-0 flex items-center justify-center">
-              <div className="relative h-24 w-16 bg-white rounded shadow-2xl overflow-hidden transition-transform duration-700 group-hover:translate-y-[-8px]">
-                <div className="p-2 space-y-1.5">
-                  <div className="h-1.5 w-8 bg-emerald-100 rounded-full" />
-                  <div className="h-1 w-full bg-neutral-50 rounded-full" />
-                  <div className="h-1 w-full bg-neutral-50 rounded-full" />
-                  <div className="h-1 w-2/3 bg-neutral-50 rounded-full" />
-                </div>
-                <div className="absolute inset-x-0 bottom-0 h-6 bg-emerald-600 flex items-center justify-center">
-                   <div className="h-2 w-8 bg-white/20 rounded-full" />
+          <div className="relative h-full w-full overflow-hidden bg-gradient-to-br from-[#D1FAE5] via-[#6EE7B7] to-[#10B981]">
+            {/* Subtle pattern */}
+            <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255,255,255,0.1) 10px, rgba(255,255,255,0.1) 20px)' }} />
+            
+            {/* Dollar watermark */}
+            <div className="absolute -right-4 -bottom-4 text-white/10 text-[120px] font-bold leading-none">$</div>
+            
+            {/* Receipt shape */}
+            <div className="absolute top-[15%] left-1/2 -translate-x-1/2 w-24 bg-white rounded-lg shadow-2xl overflow-hidden transition-transform duration-500 group-hover:-translate-y-2">
+              <div className="p-3 space-y-2">
+                <div className="h-2 w-12 bg-emerald-200 rounded-full" />
+                <div className="h-1.5 w-full bg-slate-100 rounded-full" />
+                <div className="h-1.5 w-full bg-slate-100 rounded-full" />
+                <div className="h-1.5 w-3/4 bg-slate-100 rounded-full" />
+                <div className="pt-2 border-t border-dashed border-slate-200">
+                  <div className="h-2 w-16 bg-emerald-400 rounded-full" />
                 </div>
               </div>
+            </div>
+            
+            {/* Checkmark badge */}
+            <div className="absolute bottom-[20%] right-[20%] flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-lg transition-transform duration-500 group-hover:scale-110">
+              <svg className="h-5 w-5 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+              </svg>
             </div>
           </div>
         );
       default:
         return (
-          <div className="relative h-full w-full overflow-hidden bg-neutral-100">
-            <div className="absolute inset-0 opacity-[0.05]" 
-                 style={{ 
-                   backgroundImage: 'linear-gradient(rgba(0,0,0,1) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,1) 1px, transparent 1px)',
-                   backgroundSize: '20px 20px'
-                 }} 
-            />
-            <div className="absolute inset-0 flex items-center justify-center opacity-20 group-hover:opacity-30 transition-opacity duration-500">
-              <div className="h-16 w-16 grayscale">
-                {style.icon}
+          <div className="relative h-full w-full overflow-hidden bg-gradient-to-br from-slate-100 via-slate-200 to-slate-300">
+            {/* Abstract grid */}
+            <div className="absolute inset-0 opacity-[0.15]" style={{ 
+              backgroundImage: 'linear-gradient(rgba(0,0,0,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.1) 1px, transparent 1px)',
+              backgroundSize: '24px 24px'
+            }} />
+            
+            {/* Connection dots */}
+            <svg className="absolute inset-0 h-full w-full opacity-30" viewBox="0 0 100 100" preserveAspectRatio="none">
+              <line x1="20" y1="20" x2="50" y2="50" stroke="#64748b" strokeWidth="0.5" />
+              <line x1="50" y1="50" x2="80" y2="30" stroke="#64748b" strokeWidth="0.5" />
+              <line x1="50" y1="50" x2="70" y2="80" stroke="#64748b" strokeWidth="0.5" />
+              <circle cx="20" cy="20" r="3" fill="#64748b" />
+              <circle cx="50" cy="50" r="4" fill="#475569" />
+              <circle cx="80" cy="30" r="3" fill="#64748b" />
+              <circle cx="70" cy="80" r="3" fill="#64748b" />
+            </svg>
+            
+            {/* Central link icon */}
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="relative flex h-16 w-16 items-center justify-center rounded-2xl bg-white/80 backdrop-blur-sm shadow-xl border border-slate-200 transition-all duration-500 group-hover:scale-110 group-hover:bg-white">
+                <svg className="h-7 w-7 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+                </svg>
               </div>
             </div>
           </div>
