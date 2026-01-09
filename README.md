@@ -1,36 +1,61 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# GigLink 🚀
 
-## Getting Started
+A premium, design-driven project link management system for freelancers and creators. GigLink allows you to curate and share your best work through beautiful, high-performance dashboards.
 
-First, run the development server:
+## ✨ Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- **Premium Design Engineering**: Built with a focus on minimalist aesthetics (Vercel/Linear style) and fluid micro-interactions.
+- **Smart Resource Management**:
+  - **Multi-step Animated Form**: A refined, context-aware "Add Link" widget with keyboard navigation support (Arrow keys/Enter).
+  - **Smart Validation**: Real-time URL and title validation with smooth, non-intrusive error animations.
+  - **Categorized Resources**: Automated icon mapping and styling for Figma, GitHub, Video, and more.
+- **Micro-interactions**:
+  - **Two-Tap Deletion**: A contextual "Sure?" confirmation flow to prevent accidental removals without disruptive dialogs.
+  - **Symmetrical Layouts**: Perfectly aligned column baselines for a stable, professional dashboard feel.
+- **Performance First**:
+  - Built on **Next.js 15** with App Router.
+  - **Server Actions** for secure, lightning-fast database operations.
+  - **Supabase** backend for authentication and real-time data.
+  - **Framer Motion** for hardware-accelerated, origin-aware animations.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🛠️ Tech Stack
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Framework**: Next.js 15 (App Router)
+- **Styling**: TailwindCSS 4
+- **Animations**: Framer Motion
+- **Backend**: Supabase (Auth & Postgres)
+- **Icons**: Lucide React
+- **Form Handling**: React Use Measure (for smooth layout transitions)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🚀 Getting Started
 
-## Learn More
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/shrey258/giglink.git
+   cd giglink
+   ```
 
-To learn more about Next.js, take a look at the following resources:
+2. **Install dependencies**:
+   ```bash
+   npm install
+   ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+3. **Set up Environment Variables**:
+   Create a `.env.local` file with your Supabase credentials:
+   ```env
+   NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
+   NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+   ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+4. **Run the development server**:
+   ```bash
+   npm run dev
+   ```
 
-## Deploy on Vercel
+## 📐 Design Philosophy
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+GigLink follows the **Rule of Clarity and Simplicity**. Every interaction is designed to be hardware-accelerated, accessible, and origin-aware. We prioritize `ease-out` transitions and spring physics to make the UI feel alive and responsive.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+Built with ❤️ by [Shrey](https://github.com/shrey258)
