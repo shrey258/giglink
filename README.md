@@ -30,18 +30,21 @@ A premium, design-driven project link management system for freelancers and crea
 ## 🚀 Getting Started
 
 1. **Clone the repository**:
+
    ```bash
    git clone https://github.com/shrey258/giglink.git
    cd giglink
    ```
 
 2. **Install dependencies**:
+
    ```bash
    npm install
    ```
 
 3. **Set up Environment Variables**:
    Create a `.env.local` file with your Supabase credentials:
+
    ```env
    NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
    NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key

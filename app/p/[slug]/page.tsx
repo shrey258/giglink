@@ -33,20 +33,19 @@ export default async function ProjectPage({
         <div className="absolute -top-[10%] left-1/2 -translate-x-1/2 w-[1000px] h-[600px] opacity-[0.08] blur-[120px] bg-gradient-to-b from-blue-600 via-indigo-500 to-transparent rounded-full" />
         <div className="absolute top-[20%] -left-[10%] w-[600px] h-[600px] opacity-[0.05] blur-[100px] bg-blue-400 rounded-full" />
         <div className="absolute top-[40%] -right-[10%] w-[500px] h-[500px] opacity-[0.04] blur-[100px] bg-purple-400 rounded-full" />
-        
+
         {/* Subtle Grid or Noise Pattern could go here if needed, keeping it clean for now */}
       </div>
 
       {/* Content Container */}
       <div className="relative z-10 mx-auto max-w-4xl px-6 py-20 sm:py-32">
-        
         {/* Header Section */}
         <header className="mb-24 flex flex-col items-center text-center">
           <FadeIn delay={0.2} className="flex flex-col items-center gap-6">
             <h1 className="max-w-4xl text-5xl font-bold tracking-tight text-neutral-900 sm:text-7xl lg:text-8xl">
               {project.project_name}
             </h1>
-            
+
             <p className="text-lg font-medium text-neutral-500">
               for {project.client_name}
             </p>
@@ -75,11 +74,13 @@ export default async function ProjectPage({
               </FadeIn>
             ))}
           </div>
-          
+
           {links?.length === 0 && (
             <FadeIn delay={0.5}>
               <div className="flex flex-col items-center justify-center py-20 rounded-3xl border border-dashed border-neutral-200 bg-neutral-50/50">
-                <p className="text-neutral-400 font-medium italic">No links shared yet.</p>
+                <p className="text-neutral-400 font-medium italic">
+                  No links shared yet.
+                </p>
               </div>
             </FadeIn>
           )}
@@ -95,7 +96,10 @@ export default async function ProjectPage({
                   G
                 </div>
                 <span className="text-xs font-medium text-neutral-500">
-                  Powered by <span className="text-neutral-900 font-semibold">GigLink</span>
+                  Powered by{' '}
+                  <span className="text-neutral-900 font-semibold">
+                    GigLink
+                  </span>
                 </span>
               </div>
             </div>

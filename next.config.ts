@@ -31,6 +31,18 @@ const nextConfig: NextConfig = {
         protocol: 'https',
         hostname: 'platform-lookaside.fbsbx.com',
       },
+      {
+        protocol: 'https',
+        hostname: 'upload.wikimedia.org',
+      },
+      {
+        protocol: 'https',
+        hostname: 'cdn.jsdelivr.net',
+      },
+      {
+        protocol: 'https',
+        hostname: 'cdn.brandfetch.io',
+      },
     ],
   },
 };

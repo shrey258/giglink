@@ -3,7 +3,6 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { ChevronRight, FolderOpen, Globe } from 'lucide-react';
 import AddLink from '@/components/AddLink';
-import PreviewCard from '@/components/PreviewCard';
 import DeleteProjectBtn from '@/components/DeleteProjectBtn';
 import FadeIn from '@/components/FadeIn';
 import LinkCard from '@/components/LinkCard';
