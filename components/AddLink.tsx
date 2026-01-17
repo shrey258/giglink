@@ -391,6 +391,7 @@ export default function AddLink({ projectId }: { projectId: string }) {
                 type="button"
                 disabled={currentStep === 0}
                 onClick={handleBack}
+                aria-label="Go to previous step"
                 className="flex h-8 w-8 items-center justify-center rounded-full text-neutral-400 transition-colors hover:bg-neutral-100 hover:text-neutral-600 disabled:opacity-30 disabled:pointer-events-none"
               >
                 <ArrowLeft className="h-4 w-4" />
@@ -399,10 +400,11 @@ export default function AddLink({ projectId }: { projectId: string }) {
                 type="button"
                 onClick={handleNext}
                 disabled={currentStep >= steps.length - 1}
+                aria-label="Go to next step"
                 animate={
                   // Pulse animation if current step is valid
                   (currentStep === 0 && url.length > 5) ||
-                  (currentStep === 1 && title.length >= 2)
+                    (currentStep === 1 && title.length >= 2)
                     ? { scale: [1, 1.1, 1] }
                     : {}
                 }

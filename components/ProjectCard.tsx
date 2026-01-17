@@ -49,7 +49,8 @@ export default function ProjectCard({ project }: { project: Project }) {
             <Link
               href={`/p/${project.magic_slug}`}
               target="_blank"
-              className="text-neutral-400 hover:text-blue-600"
+              aria-label={`View ${project.project_name} public page`}
+              className="text-neutral-400 hover:text-blue-600 focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 rounded-sm"
               onClick={e => e.stopPropagation()}
             >
               <ExternalLink className="h-4 w-4" />
@@ -63,14 +64,12 @@ export default function ProjectCard({ project }: { project: Project }) {
 
       <div className="flex items-center justify-between border-t border-neutral-100 pt-4">
         <span
-          className={`inline-flex items-center gap-1.5 text-xs font-medium ${
-            project.status === 'active' ? 'text-green-600' : 'text-neutral-500'
-          }`}
+          className={`inline-flex items-center gap-1.5 text-xs font-medium ${project.status === 'active' ? 'text-green-600' : 'text-neutral-500'
+            }`}
         >
           <span
-            className={`h-1.5 w-1.5 rounded-full ${
-              project.status === 'active' ? 'bg-green-600' : 'bg-neutral-300'
-            }`}
+            className={`h-1.5 w-1.5 rounded-full ${project.status === 'active' ? 'bg-green-600' : 'bg-neutral-300'
+              }`}
           />
           {project.status.charAt(0).toUpperCase() + project.status.slice(1)}
         </span>

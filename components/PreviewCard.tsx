@@ -162,7 +162,8 @@ export default function PreviewCard({ className }: PreviewCardProps) {
               type="button"
               disabled={currentWidget === 0}
               onClick={handleBack}
-              className="flex h-8 w-8 items-center justify-center rounded-full border border-neutral-200 bg-white text-neutral-500 shadow-sm transition-all hover:bg-neutral-50 hover:text-neutral-900 active:scale-95 disabled:opacity-30 disabled:pointer-events-none"
+              aria-label="Go to previous step"
+              className="flex h-8 w-8 items-center justify-center rounded-full border border-neutral-200 bg-white text-neutral-500 shadow-sm transition-all hover:bg-neutral-50 hover:text-neutral-900 active:scale-95 disabled:opacity-30 disabled:pointer-events-none focus-visible:ring-2 focus-visible:ring-neutral-900 focus-visible:ring-offset-2"
             >
               <ArrowLeft className="h-4 w-4" />
             </button>
@@ -170,7 +171,8 @@ export default function PreviewCard({ className }: PreviewCardProps) {
               type="button"
               disabled={currentWidget === widgetData.length - 1}
               onClick={handleNext}
-              className="flex h-8 w-8 items-center justify-center rounded-full border border-neutral-200 bg-white text-neutral-500 shadow-sm transition-all hover:bg-neutral-50 hover:text-neutral-900 active:scale-95 disabled:opacity-30 disabled:pointer-events-none"
+              aria-label="Go to next step"
+              className="flex h-8 w-8 items-center justify-center rounded-full border border-neutral-200 bg-white text-neutral-500 shadow-sm transition-all hover:bg-neutral-50 hover:text-neutral-900 active:scale-95 disabled:opacity-30 disabled:pointer-events-none focus-visible:ring-2 focus-visible:ring-neutral-900 focus-visible:ring-offset-2"
             >
               <ArrowRight className="h-4 w-4" />
             </button>

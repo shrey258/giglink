@@ -200,16 +200,20 @@ export default function PortalLinkCard({
           <div className="relative h-full w-full overflow-hidden bg-gradient-to-br from-[#0D1117] via-[#161B22] to-[#21262D]">
             {/* Contribution graph pattern */}
             <div className="absolute inset-0 grid grid-cols-7 gap-1 p-4 opacity-40">
-              {[...Array(49)].map((_, i) => (
-                <div
-                  key={i}
-                  className="aspect-square rounded-sm transition-all duration-500"
-                  style={{
-                    backgroundColor: `rgba(57, 211, 83, ${Math.random() * 0.8})`,
-                    transitionDelay: `${i * 20}ms`,
-                  }}
-                />
-              ))}
+              {[...Array(49)].map((_, i) => {
+                // Deterministic pseudo-random pattern using golden ratio
+                const opacity = ((i * 0.618033988749895) % 1) * 0.8;
+                return (
+                  <div
+                    key={i}
+                    className="aspect-square rounded-sm transition-all duration-500"
+                    style={{
+                      backgroundColor: `rgba(57, 211, 83, ${opacity})`,
+                      transitionDelay: `${i * 20}ms`,
+                    }}
+                  />
+                );
+              })}
             </div>
 
             {/* Radial glow */}

@@ -136,8 +136,9 @@ export default function LinkCard({
                 <button
                   type="submit"
                   disabled={isDeleting}
+                  aria-label={showConfirm ? 'Confirm delete' : 'Delete link'}
                   className={cn(
-                    'relative flex items-center justify-center rounded-lg px-2 py-2 transition-all duration-200',
+                    'relative flex items-center justify-center rounded-lg px-2 py-2 transition-all duration-200 focus-visible:ring-2 focus-visible:ring-neutral-900 focus-visible:ring-offset-2',
                     showConfirm
                       ? 'bg-red-500 px-3 text-white opacity-100'
                       : 'text-neutral-300 opacity-0 group-hover:opacity-100 hover:bg-red-50 hover:text-red-500'
@@ -181,7 +182,8 @@ export default function LinkCard({
               href={url}
               target="_blank"
               rel="noopener noreferrer"
-              className="rounded-lg p-2 text-neutral-300 transition-all hover:bg-neutral-50 hover:text-neutral-900 opacity-0 group-hover:opacity-100"
+              aria-label={`Open ${title} in new tab`}
+              className="rounded-lg p-2 text-neutral-300 transition-all hover:bg-neutral-50 hover:text-neutral-900 opacity-0 group-hover:opacity-100 focus-visible:opacity-100 focus-visible:ring-2 focus-visible:ring-neutral-900 focus-visible:ring-offset-2"
             >
               <ExternalLink className="h-4 w-4" />
             </a>

@@ -1,6 +1,6 @@
 'use client';
 
-import { FormEvent, useMemo, useState } from 'react';
+import { FormEvent, useMemo, useState, useEffect } from 'react';
 import { Plus, Loader2, X, Check } from 'lucide-react';
 import { motion, AnimatePresence, LayoutGroup } from 'framer-motion';
 import { createProject } from '@/app/actions'; // Import the server action
@@ -53,6 +53,15 @@ export default function CreateProjectBtn() {
     }
   }
 
+  // Handle Escape key to close modal
+  useEffect(() => {
+    const handleEsc = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && isOpen) setIsOpen(false);
+    };
+    window.addEventListener('keydown', handleEsc);
+    return () => window.removeEventListener('keydown', handleEsc);
+  }, [isOpen]);
+
   return (
     <>
       {/* 1. The Trigger Button (Dashed Border) */}
@@ -104,10 +113,11 @@ export default function CreateProjectBtn() {
               <form onSubmit={handleSubmit} className="p-6 pt-4">
                 <div className="space-y-4">
                   <div>
-                    <label className="mb-1 block text-sm font-medium text-neutral-600">
+                    <label htmlFor="clientName" className="mb-1 block text-sm font-medium text-neutral-600">
                       Client Name
                     </label>
                     <input
+                      id="clientName"
                       name="clientName"
                       required
                       placeholder="e.g. Acme Corp"
@@ -116,10 +126,11 @@ export default function CreateProjectBtn() {
                   </div>
 
                   <div>
-                    <label className="mb-1 block text-sm font-medium text-neutral-600">
+                    <label htmlFor="projectName" className="mb-1 block text-sm font-medium text-neutral-600">
                       Project Name
                     </label>
                     <input
+                      id="projectName"
                       name="projectName"
                       required
                       placeholder="e.g. Website Redesign"
