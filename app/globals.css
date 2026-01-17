@@ -8,6 +8,7 @@
 
 /* Accessibility: Respect user preference for reduced motion */
 @media (prefers-reduced-motion: reduce) {
+
   *,
   *::before,
   *::after {
