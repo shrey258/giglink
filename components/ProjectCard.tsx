@@ -61,23 +61,12 @@ export default function ProjectCard({ project }: { project: Project }) {
           {project.project_name}
         </h3>
       </div>
-
-      <div className="flex items-center justify-between border-t border-neutral-100 pt-4">
-        <span
-          className={`inline-flex items-center gap-1.5 text-xs font-medium ${project.status === 'active' ? 'text-green-600' : 'text-neutral-500'
-            }`}
-        >
-          <span
-            className={`h-1.5 w-1.5 rounded-full ${project.status === 'active' ? 'bg-green-600' : 'bg-neutral-300'
-              }`}
-          />
-          {project.status.charAt(0).toUpperCase() + project.status.slice(1)}
-        </span>
-
-        <p className="text-xs text-neutral-400">
-          {new Date(project.created_at).toLocaleDateString()}
+      <div className="flex items-center justify-between border-t border-neutral-100/50 pt-4 mt-auto">
+        <p className="text-[10px] font-bold uppercase tracking-widest text-neutral-400 opacity-60">
+          Created {new Date(project.created_at).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}
         </p>
       </div>
     </Link>
+
   );
 }
