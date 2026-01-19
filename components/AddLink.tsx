@@ -20,14 +20,32 @@ import { motion, AnimatePresence, MotionConfig } from 'framer-motion';
 import useMeasure from 'react-use-measure';
 
 const variants = {
-  initial: (direction: number) => {
-    return { y: `${110 * direction}%`, opacity: 0, filter: 'blur(10px)' };
+  initial: (direction: number) => ({
+    y: direction > 0 ? 20 : -20,
+    opacity: 0,
+    filter: 'blur(8px)',
+    scale: 0.96,
+  }),
+  active: {
+    y: 0,
+    opacity: 1,
+    filter: 'blur(0px)',
+    scale: 1,
   },
-  active: { y: '0%', opacity: 1, filter: 'blur(0px)' },
-  exit: (direction: number) => {
-    return { y: `${-110 * direction}%`, opacity: 0, filter: 'blur(10px)' };
-  },
+  exit: (direction: number) => ({
+    y: direction > 0 ? -20 : 20,
+    opacity: 0,
+    filter: 'blur(8px)',
+    scale: 0.96,
+  }),
 };
+
+const SPRING_CONFIG = {
+  type: 'spring',
+  stiffness: 400,
+  damping: 30,
+  mass: 1,
+} as const;
 
 export default function AddLink({ projectId }: { projectId: string }) {
   const [loading, setLoading] = useState(false);
@@ -184,21 +202,26 @@ export default function AddLink({ projectId }: { projectId: string }) {
       label: 'Finish',
       icon: Plus,
       content: (
-        <div className="flex w-full flex-col items-center justify-center py-4">
+        <div className="flex w-full flex-col items-center justify-center py-6">
           <motion.button
             type="submit"
             disabled={loading}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="group relative flex items-center justify-center gap-2 rounded-full bg-neutral-900 px-12 py-4 text-[15px] font-semibold text-white shadow-2xl ring-8 ring-neutral-50 disabled:opacity-50"
+            whileHover={{ scale: 1.02, y: -2 }}
+            whileTap={{ scale: 0.98, y: 0 }}
+            className="group relative flex items-center justify-center gap-3 rounded-2xl bg-neutral-900 px-16 py-4 text-[15px] font-bold text-white shadow-xl hover:shadow-2xl transition-shadow disabled:opacity-50 overflow-hidden"
           >
-            <span className="absolute inset-0 rounded-full bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity" />
+            <motion.div
+              className="absolute inset-0 bg-gradient-to-tr from-white/0 via-white/10 to-white/0"
+              initial={{ x: '-100%' }}
+              whileHover={{ x: '100%' }}
+              transition={{ duration: 0.6, ease: 'easeInOut' }}
+            />
             {loading ? (
               <Loader2 className="h-5 w-5 animate-spin" />
             ) : (
-              <Plus className="h-5 w-5 transition-transform group-hover:rotate-90" />
+              <Plus className="h-5 w-5 transition-transform group-hover:rotate-90 group-hover:scale-110" />
             )}
-            <span>Add Resource</span>
+            <span className="relative z-10">Add Resource</span>
           </motion.button>
         </div>
       ),
@@ -288,19 +311,20 @@ export default function AddLink({ projectId }: { projectId: string }) {
 
   if (isSuccess) {
     return (
-      <div className="rounded-xl border border-neutral-200 bg-white shadow-sm overflow-hidden h-[200px] flex items-center justify-center relative">
+      <div className="glass rounded-3xl shadow-premium overflow-hidden h-[240px] flex items-center justify-center relative border-neutral-200/50">
         <Confetti />
         <motion.div
-          initial={{ scale: 0.8, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          className="flex flex-col items-center gap-3 relative z-10"
+          initial={{ scale: 0.5, opacity: 0, y: 20 }}
+          animate={{ scale: 1, opacity: 1, y: 0 }}
+          transition={{ type: 'spring', damping: 15, stiffness: 200 }}
+          className="flex flex-col items-center gap-4 relative z-10"
         >
-          <div className="h-16 w-16 rounded-full bg-green-100 flex items-center justify-center text-green-600">
+          <div className="h-20 w-20 rounded-full bg-green-50 flex items-center justify-center text-green-600 shadow-inner">
             <motion.svg
-              initial={{ pathLength: 0 }}
-              animate={{ pathLength: 1 }}
-              transition={{ duration: 0.5, ease: 'easeInOut' }}
-              className="h-8 w-8"
+              initial={{ pathLength: 0, scale: 0.5 }}
+              animate={{ pathLength: 1, scale: 1 }}
+              transition={{ duration: 0.6, ease: 'easeOut' }}
+              className="h-10 w-10"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -313,51 +337,61 @@ export default function AddLink({ projectId }: { projectId: string }) {
               />
             </motion.svg>
           </div>
-          <h3 className="text-lg font-bold text-neutral-900">Added!</h3>
+          <motion.h3
+            initial={{ opacity: 0, y: 5 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            className="text-xl font-bold text-neutral-900 tracking-tight"
+          >
+            Resource Added!
+          </motion.h3>
         </motion.div>
       </div>
     );
   }
 
   return (
-    <MotionConfig transition={{ duration: 0.5, type: 'spring', bounce: 0.2 }}>
+    <MotionConfig transition={SPRING_CONFIG}>
       <motion.div
         animate={{ height: bounds.height > 0 ? bounds.height : 'auto' }}
-        className="rounded-xl border border-neutral-200 bg-white shadow-sm overflow-hidden"
+        className="glass rounded-3xl shadow-premium border-neutral-200/50 overflow-hidden"
       >
-        <div ref={ref} className="px-5 py-6 flex flex-col items-center gap-8">
-          <div className="w-full relative flex items-center h-10 px-1">
-            <div className="flex flex-col gap-0.5 min-w-[80px]">
+        <div ref={ref} className="px-6 py-8 flex flex-col items-center gap-10">
+          <div className="w-full relative flex items-center h-12 px-2">
+            <div className="flex flex-col gap-1 min-w-[100px]">
               <motion.h3
                 layoutId="step-label"
-                className="text-[13px] font-semibold text-neutral-900 tracking-tight leading-none"
+                className="text-sm font-bold text-neutral-900 tracking-tight leading-none uppercase"
               >
                 {steps[currentStep].label}
               </motion.h3>
-              <p className="text-[10px] text-neutral-400 font-medium leading-none">
-                Step {currentStep + 1}/{steps.length}
+              <p className="text-[11px] text-neutral-400 font-bold leading-none tracking-wider">
+                STEP {currentStep + 1} OF {steps.length}
               </p>
             </div>
 
             <div className="absolute left-1/2 -translate-x-1/2 flex items-center justify-center">
-              <motion.div layout className="flex -space-x-2 h-6 items-center">
+              <motion.div layout className="flex -space-x-3 h-8 items-center">
                 {Array.from({ length: currentStep }).map((_, index) => {
                   const StepIcon = steps[index].icon;
                   return (
                     <motion.div
                       key={steps[index].id}
                       layoutId={`badge-${steps[index].id}`}
-                      className="h-6 w-6 rounded-full ring-2 ring-white shadow-sm bg-neutral-900 flex items-center justify-center text-white"
+                      initial={{ scale: 0.5, opacity: 0 }}
+                      animate={{ scale: 1, opacity: 1 }}
+                      className="h-8 w-8 rounded-full ring-4 ring-white shadow-md bg-neutral-900 flex items-center justify-center text-white"
                     >
-                      <StepIcon className="h-2.5 w-2.5" />
+                      <StepIcon className="h-3.5 w-3.5" />
                     </motion.div>
                   );
                 })}
               </motion.div>
             </div>
 
-            <div className="min-w-[80px]" />
+            <div className="min-w-[100px]" />
           </div>
+
 
           <form
             onSubmit={e => {

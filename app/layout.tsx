@@ -34,10 +34,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased selection:bg-neutral-900 selection:text-white`}
       >
-        {children}
+        <div className="relative min-h-screen">
+          {children}
+        </div>
       </body>
+
     </html>
   );
 }
