@@ -12,6 +12,13 @@ interface PortalLinkCardProps {
   index: number;
 }
 
+const SPRING_CONFIG = {
+  type: 'spring',
+  stiffness: 400,
+  damping: 30,
+  mass: 1,
+} as const;
+
 const iconMap: Record<
   string,
   { color: string; bg: string; icon: React.ReactNode }
@@ -148,10 +155,26 @@ export default function PortalLinkCard({
             />
 
             {/* Layered geometric shapes */}
-            <div className="absolute top-[15%] left-[10%] h-20 w-20 rounded-2xl bg-[#F24E1E]/80 blur-[1px] transform rotate-12 transition-transform duration-700 group-hover:rotate-6" />
-            <div className="absolute top-[25%] left-[20%] h-16 w-16 rounded-xl bg-[#A259FF]/70 blur-[0.5px] transform -rotate-6 transition-transform duration-700 group-hover:rotate-0" />
-            <div className="absolute bottom-[20%] right-[15%] h-14 w-14 rounded-lg bg-[#1ABCFE]/60 blur-[0.5px] transform rotate-45 transition-transform duration-700 group-hover:rotate-[50deg]" />
-            <div className="absolute bottom-[30%] right-[25%] h-12 w-12 rounded-md bg-[#0ACF83]/50 blur-[0.5px] transition-transform duration-700 group-hover:scale-110" />
+            <motion.div
+              animate={{ rotate: [12, 15, 12], y: [0, -5, 0] }}
+              transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+              className="absolute top-[15%] left-[10%] h-20 w-20 rounded-2xl bg-[#F24E1E]/80 blur-[1px] transform rotate-12 transition-transform duration-700 group-hover:rotate-6 shadow-xl"
+            />
+            <motion.div
+              animate={{ rotate: [-6, -10, -6], y: [0, 5, 0] }}
+              transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
+              className="absolute top-[25%] left-[20%] h-16 w-16 rounded-xl bg-[#A259FF]/70 blur-[0.5px] transform -rotate-6 transition-transform duration-700 group-hover:rotate-0 shadow-lg"
+            />
+            <motion.div
+              animate={{ rotate: [45, 55, 45], x: [0, 5, 0] }}
+              transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
+              className="absolute bottom-[20%] right-[15%] h-14 w-14 rounded-lg bg-[#1ABCFE]/60 blur-[0.5px] transform rotate-45 transition-transform duration-700 group-hover:rotate-[50deg] shadow-lg"
+            />
+            <motion.div
+              animate={{ scale: [1, 1.1, 1] }}
+              transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+              className="absolute bottom-[30%] right-[25%] h-12 w-12 rounded-md bg-[#0ACF83]/50 blur-[0.5px] transition-transform duration-700 group-hover:scale-110 shadow-md"
+            />
 
             {/* Connection lines (design nodes metaphor) */}
             <svg
@@ -202,14 +225,21 @@ export default function PortalLinkCard({
             <div className="absolute inset-0 grid grid-cols-7 gap-1 p-4 opacity-40">
               {[...Array(49)].map((_, i) => {
                 // Deterministic pseudo-random pattern using golden ratio
-                const opacity = ((i * 0.618033988749895) % 1) * 0.8;
+                const opacityValue = ((i * 0.618033988749895) % 1) * 0.8;
                 return (
-                  <div
+                  <motion.div
                     key={i}
+                    initial={{ opacity: 0.2 }}
+                    animate={{ opacity: [0.2, opacityValue, 0.2] }}
+                    transition={{
+                      duration: 3 + (i % 3),
+                      repeat: Infinity,
+                      ease: 'easeInOut',
+                      delay: i * 0.1
+                    }}
                     className="aspect-square rounded-sm transition-all duration-500"
                     style={{
-                      backgroundColor: `rgba(57, 211, 83, ${opacity})`,
-                      transitionDelay: `${i * 20}ms`,
+                      backgroundColor: `rgba(57, 211, 83, 1)`,
                     }}
                   />
                 );
@@ -251,8 +281,16 @@ export default function PortalLinkCard({
         return (
           <div className="relative h-full w-full overflow-hidden bg-gradient-to-br from-white via-slate-50 to-slate-100">
             {/* Layered folder planes */}
-            <div className="absolute top-[20%] left-[15%] h-24 w-32 rounded-lg bg-white shadow-lg border border-slate-200/50 transform -rotate-6 transition-transform duration-500 group-hover:-rotate-3" />
-            <div className="absolute top-[25%] left-[20%] h-24 w-32 rounded-lg bg-white shadow-xl border border-slate-200/50 transform rotate-3 transition-transform duration-500 group-hover:rotate-6" />
+            <motion.div
+              animate={{ rotate: [-6, -4, -6], x: [-2, 2, -2] }}
+              transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+              className="absolute top-[20%] left-[15%] h-24 w-32 rounded-lg bg-white shadow-lg border border-slate-200/50 transform -rotate-6 transition-transform duration-500 group-hover:-rotate-3"
+            />
+            <motion.div
+              animate={{ rotate: [3, 5, 3], x: [2, -2, 2] }}
+              transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
+              className="absolute top-[25%] left-[20%] h-24 w-32 rounded-lg bg-white shadow-xl border border-slate-200/50 transform rotate-3 transition-transform duration-500 group-hover:rotate-6"
+            />
 
             {/* Tri-color accent bar */}
             <div className="absolute bottom-[25%] left-[10%] right-[10%] h-1 flex gap-1 rounded-full overflow-hidden">
@@ -295,15 +333,17 @@ export default function PortalLinkCard({
             />
 
             {/* Waveform bars */}
-            <div className="absolute bottom-[30%] left-[15%] right-[15%] flex items-end justify-center gap-1 h-12">
+            <div className="absolute bottom-[30%] left-[15%] right-[15%] flex items-end justify-center gap-1.5 h-12">
               {[0.4, 0.7, 1, 0.5, 0.8, 0.6, 0.9, 0.5, 0.7, 0.4].map((h, i) => (
-                <div
+                <motion.div
                   key={i}
-                  className="w-2 bg-white/40 rounded-full transition-all duration-300"
-                  style={{
-                    height: `${h * 100}%`,
-                    animationDelay: `${i * 100}ms`,
+                  animate={{ height: [`${h * 50}%`, `${h * 100}%`, `${h * 50}%`] }}
+                  transition={{
+                    duration: 1.5 + (i * 0.1),
+                    repeat: Infinity,
+                    ease: 'easeInOut'
                   }}
+                  className="w-2.5 bg-white/60 rounded-full shadow-sm"
                 />
               ))}
             </div>
@@ -340,17 +380,21 @@ export default function PortalLinkCard({
             </div>
 
             {/* Receipt shape */}
-            <div className="absolute top-[15%] left-1/2 -translate-x-1/2 w-24 bg-white rounded-lg shadow-2xl overflow-hidden transition-transform duration-500 group-hover:-translate-y-2">
+            <motion.div
+              animate={{ y: [0, -8, 0], rotate: [0, -2, 0] }}
+              transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+              className="absolute top-[15%] left-1/2 -translate-x-1/2 w-24 bg-white rounded-xl shadow-2xl overflow-hidden transition-transform duration-500 group-hover:-translate-y-2"
+            >
               <div className="p-3 space-y-2">
                 <div className="h-2 w-12 bg-emerald-200 rounded-full" />
                 <div className="h-1.5 w-full bg-slate-100 rounded-full" />
                 <div className="h-1.5 w-full bg-slate-100 rounded-full" />
                 <div className="h-1.5 w-3/4 bg-slate-100 rounded-full" />
-                <div className="pt-2 border-t border-dashed border-slate-200">
+                <div className="pt-2 border-t border-dotted border-slate-200">
                   <div className="h-2 w-16 bg-emerald-400 rounded-full" />
                 </div>
               </div>
-            </div>
+            </motion.div>
 
             {/* Checkmark badge */}
             <div className="absolute bottom-[20%] right-[20%] flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-lg transition-transform duration-500 group-hover:scale-110">
@@ -447,38 +491,39 @@ export default function PortalLinkCard({
       href={url}
       target="_blank"
       rel="noopener noreferrer"
-      whileHover={{ scale: 1.02 }}
+      transition={SPRING_CONFIG}
+      whileHover={{ y: -8, scale: 1.01 }}
       whileTap={{ scale: 0.98 }}
-      className="group relative flex flex-col rounded-[32px] bg-neutral-100 p-3 transition-all duration-500 hover:bg-neutral-200 hover:shadow-xl"
+      className="group relative flex flex-col rounded-[48px] bg-white/40 p-3 shadow-sm transition-all duration-500 hover:shadow-premium glass border-neutral-200/50"
     >
       {/* Search Bar / Browser Chrome (Decorative) */}
-      <div className="mb-3 flex items-center justify-between px-3 pt-1">
-        <div className="flex gap-1.5">
-          <div className="h-2 w-2 rounded-full bg-neutral-300 group-hover:bg-red-400 transition-colors" />
-          <div className="h-2 w-2 rounded-full bg-neutral-300 group-hover:bg-yellow-400 transition-colors" />
-          <div className="h-2 w-2 rounded-full bg-neutral-300 group-hover:bg-green-400 transition-colors" />
+      <div className="mb-4 flex items-center justify-between px-4 pt-2">
+        <div className="flex gap-2">
+          <div className="h-2.5 w-2.5 rounded-full bg-neutral-200 group-hover:bg-red-400/80 transition-colors" />
+          <div className="h-2.5 w-2.5 rounded-full bg-neutral-200 group-hover:bg-yellow-400/80 transition-colors" />
+          <div className="h-2.5 w-2.5 rounded-full bg-neutral-200 group-hover:bg-green-400/80 transition-colors" />
         </div>
-        <div className="h-1.5 w-12 rounded-full bg-neutral-200" />
+        <div className="h-2 w-16 rounded-full bg-neutral-100/50" />
       </div>
 
       {/* Preview Window (Inset) */}
-      <div className="aspect-square w-full overflow-hidden rounded-2xl border border-neutral-200 bg-white shadow-sm relative group-hover:shadow-md transition-shadow">
+      <div className="aspect-[4/3] w-full overflow-hidden rounded-[32px] border border-neutral-200/60 bg-white shadow-inner relative group-hover:shadow-lg transition-all duration-500">
         {renderFallback()}
 
         {/* Hover Overlay */}
-        <div className="absolute inset-0 flex items-center justify-center bg-black/5 opacity-0 backdrop-blur-[2px] transition-all duration-300 group-hover:opacity-100">
-          <div className="flex h-12 w-12 items-center justify-center rounded-full bg-white text-neutral-900 shadow-lg transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-            <ArrowRight className="h-5 w-5" />
+        <div className="absolute inset-0 flex items-center justify-center bg-neutral-900/0 opacity-0 backdrop-blur-[0px] transition-all duration-500 group-hover:bg-neutral-900/5 group-hover:opacity-100 group-hover:backdrop-blur-[4px]">
+          <div className="flex h-14 w-14 items-center justify-center rounded-full bg-white text-neutral-900 shadow-2xl transform translate-y-8 group-hover:translate-y-0 transition-all duration-500 ease-out-expo">
+            <ArrowRight className="h-6 w-6" />
           </div>
         </div>
       </div>
 
       {/* Content Area */}
-      <div className="flex flex-col px-2 pt-4 pb-2">
-        <div className="flex items-center gap-2.5">
+      <div className="flex flex-col px-4 pt-6 pb-4">
+        <div className="flex items-center gap-4">
           <div
             className={cn(
-              'flex h-6 w-6 shrink-0 items-center justify-center rounded-md text-[10px]',
+              'flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl shadow-sm border border-black/5',
               style.bg,
               style.color
             )}
@@ -486,11 +531,11 @@ export default function PortalLinkCard({
             {style.icon}
           </div>
           <div className="min-w-0 flex-1">
-            <h3 className="truncate text-sm font-semibold text-neutral-900">
+            <h3 className="truncate text-base font-bold text-neutral-900 tracking-tight">
               {title}
             </h3>
-            <p className="truncate text-[10px] text-neutral-500 font-mono opacity-60">
-              {displayUrl}
+            <p className="truncate text-xs text-neutral-400 font-bold uppercase tracking-widest opacity-80">
+              {type} — {displayUrl}
             </p>
           </div>
         </div>

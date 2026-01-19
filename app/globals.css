@@ -30,7 +30,48 @@
   --ease-in-out-cubic: cubic-bezier(.645, .045, .355, 1);
 }
 
+@layer utilities {
+  @keyframes float {
+
+    0%,
+    100% {
+      transform: translate(0, 0);
+    }
+
+    50% {
+      transform: translate(20px, -30px);
+    }
+  }
+
+  .animate-float {
+    animation: float 20s infinite ease-in-out;
+  }
+
+  .animate-float-reverse {
+    animation: float 25s infinite ease-in-out reverse;
+  }
+
+  @keyframes breathe {
+
+    0%,
+    100% {
+      transform: translate(-50%, 0%) scale(1);
+      opacity: 0.12;
+    }
+
+    50% {
+      transform: translate(-50%, -2%) scale(1.05);
+      opacity: 0.15;
+    }
+  }
+
+  .animate-breathe {
+    animation: breathe 15s infinite ease-in-out;
+  }
+}
+
 /* Accessibility: Respect user preference for reduced motion */
+
 @media (prefers-reduced-motion: reduce) {
 
   *,

@@ -114,18 +114,18 @@ export default function LinkCard({
       animate={{ opacity: 1, y: 0 }}
       transition={{
         type: 'spring',
-        stiffness: 260,
-        damping: 20,
+        stiffness: 400,
+        damping: 30,
         delay: index * 0.05,
       }}
       className="group relative"
     >
       <div
-        className={`relative flex flex-col justify-between overflow-hidden rounded-2xl border border-neutral-200 bg-white p-5 transition-all duration-300 hover:border-neutral-300 hover:shadow-xl ${style.shadow}`}
+        className={`relative flex flex-col justify-between overflow-hidden rounded-[28px] border border-neutral-200/60 bg-white/60 p-6 transition-all duration-500 hover:shadow-premium glass hover:scale-[1.02] active:scale-[0.98] ${style.shadow}`}
       >
         <div className="flex items-start justify-between">
           <div
-            className={`flex h-10 w-10 items-center justify-center rounded-xl transition-transform duration-300 group-hover:scale-110 ${style.bg}`}
+            className={`flex h-11 w-11 items-center justify-center rounded-[18px] transition-all duration-500 shadow-sm border border-black/5 ${style.bg}`}
           >
             <Icon className={`h-5 w-5 ${style.color}`} />
           </div>

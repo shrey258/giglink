@@ -23,7 +23,7 @@ export default function ProjectCard({ project }: { project: Project }) {
     <Link
       href={`/dashboard/project/${project.id}`}
       onClick={() => setIsLoading(true)}
-      className="group relative flex h-48 flex-col justify-between overflow-hidden rounded-2xl border border-neutral-200 bg-white p-6 shadow-sm transition-all hover:shadow-md hover:ring-2 hover:ring-blue-500/20"
+      className="group relative flex h-52 flex-col justify-between overflow-hidden rounded-[32px] border border-neutral-200/60 bg-white/60 p-7 shadow-sm transition-all duration-500 hover:shadow-premium glass hover:scale-[1.02] active:scale-[0.98]"
     >
       {/* Loading Overlay */}
       <AnimatePresence>

@@ -21,8 +21,14 @@ export default async function DashboardPage() {
   const { data: projects } = await getUserProjects(user.id, supabase);
 
   return (
-    <div className="min-h-screen bg-neutral-50 p-8">
-      <div className="mx-auto max-w-5xl space-y-8">
+    <div className="min-h-screen bg-neutral-50/50 p-8 sm:p-12 relative overflow-hidden">
+      {/* Background Decor */}
+      <div className="fixed inset-0 z-0 pointer-events-none">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,#e5e5e5_1.5px,transparent_0)] bg-[size:32px_32px] opacity-40" />
+      </div>
+
+      <div className="relative z-10 mx-auto max-w-6xl space-y-12">
+
         {/* Header */}
         <div className="flex items-center justify-between">
           <div>
