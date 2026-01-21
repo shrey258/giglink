@@ -1,10 +1,19 @@
+import Navbar from '@/components/landing/Navbar';
+import Hero from '@/components/landing/Hero';
+import Features from '@/components/landing/Features';
+import HowItWorks from '@/components/landing/HowItWorks';
+import CTA from '@/components/landing/CTA';
+import Footer from '@/components/landing/Footer';
+
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center p-24">
-      <h1 className="text-4xl font-bold tracking-tighter">
-        GigLink <span className="text-blue-600">.</span>
-      </h1>
-      <p className="mt-4 text-neutral-500">The friction-less client portal.</p>
+    <main className="relative min-h-screen overflow-hidden">
+      <Navbar />
+      <Hero />
+      <Features />
+      <HowItWorks />
+      <CTA />
+      <Footer />
     </main>
   );
 }
