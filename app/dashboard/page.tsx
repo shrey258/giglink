@@ -32,7 +32,7 @@ export default async function DashboardPage() {
         {/* Header */}
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-2xl font-bold tracking-tight text-neutral-900">
+            <h1 className="text-2xl font-normal tracking-tight text-neutral-900">
               Dashboard
             </h1>
             <p className="text-neutral-500">
@@ -55,7 +55,7 @@ export default async function DashboardPage() {
                   height={40}
                 />
               ) : (
-                <div className="flex h-full w-full items-center justify-center bg-blue-100 text-blue-600 font-bold">
+                <div className="flex h-full w-full items-center justify-center bg-blue-100 text-blue-600 font-normal font-display">
                   {user.email?.[0].toUpperCase()}
                 </div>
               )}

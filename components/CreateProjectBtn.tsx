@@ -73,7 +73,7 @@ export default function CreateProjectBtn() {
         <div className="flex h-12 w-12 items-center justify-center rounded-[18px] bg-blue-100 text-blue-600 shadow-sm transition-all duration-500 group-hover:scale-110 group-hover:bg-blue-200">
           <Plus className="h-6 w-6" />
         </div>
-        <p className="font-bold text-neutral-900 tracking-tight">Create Project</p>
+        <p className="font-normal text-neutral-900 tracking-tight font-display">Create Project</p>
       </button>
 
       {/* 2. The Modal Overlay */}
@@ -100,7 +100,7 @@ export default function CreateProjectBtn() {
               <div className="bg-white rounded-[32px] border border-neutral-100/50 overflow-hidden">
                 {/* Header */}
                 <div className="flex items-center justify-between border-b border-neutral-100 p-8">
-                  <h2 className="text-2xl font-black text-neutral-900 tracking-tight">
+                  <h2 className="text-2xl font-normal text-neutral-900 tracking-tight font-display">
                     New Project
                   </h2>
                   <button

@@ -51,7 +51,7 @@ export default async function ProjectPage({
             <div className="inline-flex items-center gap-2 rounded-full bg-blue-50 px-4 py-1.5 text-[11px] font-bold uppercase tracking-widest text-blue-600 ring-1 ring-inset ring-blue-600/10">
               Project Portal
             </div>
-            <h1 className="max-w-4xl text-6xl font-black tracking-tight text-neutral-900 sm:text-8xl lg:text-9xl leading-[0.9]">
+            <h1 className="max-w-4xl text-6xl font-normal tracking-tight text-neutral-900 sm:text-8xl lg:text-9xl leading-[0.9] font-display">
               {project.project_name.split(' ').map((word: string, i: number) => (
                 <span key={i} className="inline-block mr-[0.2em] last:mr-0">
                   {word}
@@ -70,7 +70,7 @@ export default async function ProjectPage({
         <div className="space-y-12">
           <FadeIn delay={0.4}>
             <div className="flex items-center justify-between border-b border-neutral-200/60 pb-6">
-              <h2 className="text-[10px] font-black uppercase tracking-[0.2em] text-neutral-400">
+              <h2 className="text-[10px] font-bold uppercase tracking-[0.2em] text-neutral-400">
                 Deliverables & Resources — {links?.length || 0}
               </h2>
             </div>
@@ -113,7 +113,7 @@ export default async function ProjectPage({
                   <span className="text-[10px] font-bold text-neutral-400 uppercase tracking-wider leading-none">
                     Powered by
                   </span>
-                  <span className="text-sm font-black text-neutral-900">
+                  <span className="text-sm font-bold text-neutral-900 font-display">
                     GigLink
                   </span>
                 </div>

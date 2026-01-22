@@ -63,7 +63,7 @@ export default async function ProjectEditor({
           {/* Left Column: Link List */}
           <div className="lg:col-span-2 flex flex-col space-y-6">
             <FadeIn delay={0.1}>
-              <h1 className="text-2xl font-bold tracking-tight text-neutral-900 h-[38px] flex items-center">
+              <h1 className="text-2xl font-normal tracking-tight text-neutral-900 h-[38px] flex items-center font-display">
                 Active Resources
               </h1>
             </FadeIn>
@@ -73,7 +73,7 @@ export default async function ProjectEditor({
                   <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-neutral-100 text-neutral-400">
                     <FolderOpen className="h-6 w-6" />
                   </div>
-                  <h3 className="text-sm font-semibold text-neutral-900">
+                  <h3 className="text-sm font-normal text-neutral-900 font-display">
                     No resources yet
                   </h3>
                   <p className="mt-1 max-w-xs text-sm text-neutral-500">

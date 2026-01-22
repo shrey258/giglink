@@ -341,7 +341,7 @@ export default function AddLink({ projectId }: { projectId: string }) {
             initial={{ opacity: 0, y: 5 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="text-xl font-bold text-neutral-900 tracking-tight"
+            className="text-xl font-normal text-neutral-900 tracking-tight font-display"
           >
             Resource Added!
           </motion.h3>
@@ -361,7 +361,7 @@ export default function AddLink({ projectId }: { projectId: string }) {
             <div className="flex flex-col gap-1 min-w-[100px]">
               <motion.h3
                 layoutId="step-label"
-                className="text-sm font-bold text-neutral-900 tracking-tight leading-none uppercase"
+                className="text-sm font-normal text-neutral-900 tracking-tight leading-none uppercase font-display"
               >
                 {steps[currentStep].label}
               </motion.h3>

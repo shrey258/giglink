@@ -58,11 +58,11 @@ export default function CTA() {
                             initial={{ opacity: 0, y: 20 }}
                             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                             transition={{ ...SPRING_ENTER, delay: 0.1 }}
-                            className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tighter text-white leading-[1.1]"
+                            className="text-4xl sm:text-5xl lg:text-6xl font-normal tracking-tighter text-white leading-[1.1] font-display"
                         >
                             Ready to impress
                             <br />
-                            your clients?
+                            <span className="italic">your clients?</span>
                         </motion.h2>
 
                         <motion.p

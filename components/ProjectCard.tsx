@@ -57,7 +57,7 @@ export default function ProjectCard({ project }: { project: Project }) {
             </Link>
           </object>
         </div>
-        <h3 className="font-semibold text-neutral-900">
+        <h3 className="font-normal text-lg text-neutral-900 font-display">
           {project.project_name}
         </h3>
       </div>

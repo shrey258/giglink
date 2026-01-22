@@ -40,7 +40,7 @@ export default function Footer() {
                                     />
                                 </svg>
                             </div>
-                            <span className="text-xl font-bold tracking-tight text-neutral-900">
+                            <span className="text-xl font-normal tracking-tight text-neutral-900 font-display">
                                 GigLink
                             </span>
                         </Link>
@@ -96,7 +96,7 @@ export default function Footer() {
                     {/* Link Columns */}
                     {Object.entries(footerLinks).map(([category, links]) => (
                         <div key={category}>
-                            <h4 className="text-sm font-semibold text-neutral-900 mb-4">
+                            <h4 className="text-sm font-normal text-neutral-900 mb-4 font-display">
                                 {category}
                             </h4>
                             <ul className="space-y-3">

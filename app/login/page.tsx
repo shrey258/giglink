@@ -37,10 +37,10 @@ export default function LoginPage() {
       >
         <div className="p-8 text-center">
           <div className="mx-auto mb-6 flex h-12 w-12 items-center justify-center rounded-xl bg-blue-600 text-white">
-            <span className="text-xl font-bold">G</span>
+            <span className="text-xl font-normal font-display">G</span>
           </div>
 
-          <h1 className="text-2xl font-bold text-neutral-900">
+          <h1 className="text-2xl font-normal text-neutral-900 font-display">
             Welcome to GigLink
           </h1>
           <p className="mt-2 mb-8 text-sm text-neutral-500">

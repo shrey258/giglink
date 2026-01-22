@@ -175,11 +175,11 @@ export default function HowItWorks() {
                             isHeaderInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }
                         }
                         transition={{ ...SPRING_ENTER, delay: 0.1 }}
-                        className="text-4xl sm:text-5xl font-bold tracking-tighter text-neutral-900"
+                        className="text-4xl sm:text-5xl font-normal tracking-tighter text-neutral-900 font-display"
                     >
                         Three steps to
                         <br />
-                        <span className="text-neutral-400">professional client delivery</span>
+                        <span className="text-neutral-400 italic">professional client delivery</span>
                     </motion.h2>
                 </div>
 
@@ -204,7 +204,7 @@ export default function HowItWorks() {
                                     <span className="inline-block text-7xl font-black text-neutral-100 leading-none mb-4">
                                         {step.number}
                                     </span>
-                                    <h3 className="text-3xl font-bold tracking-tight text-neutral-900 mb-4">
+                                    <h3 className="text-3xl font-normal tracking-tight text-neutral-900 mb-4 font-display">
                                         {step.title}
                                     </h3>
                                     <p className="text-lg text-neutral-500 leading-relaxed max-w-md mx-auto lg:mx-0">

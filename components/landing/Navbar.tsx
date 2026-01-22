@@ -37,7 +37,7 @@ export default function Navbar() {
                                 />
                             </svg>
                         </div>
-                        <span className="text-lg font-bold tracking-tight text-neutral-900">
+                        <span className="text-lg font-bold tracking-tight text-neutral-900 font-display">
                             GigLink
                         </span>
                     </Link>

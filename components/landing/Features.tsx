@@ -181,7 +181,7 @@ function FeatureCard({
             </div>
 
             {/* Content */}
-            <h3 className="mb-3 text-xl font-bold tracking-tight text-neutral-900">
+            <h3 className="mb-3 text-xl font-normal tracking-tight text-neutral-900 font-display">
                 {feature.title}
             </h3>
             <p className="text-base text-neutral-500 leading-relaxed">
@@ -221,11 +221,11 @@ export default function Features() {
                             isHeaderInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }
                         }
                         transition={{ ...SPRING_ENTER, delay: 0.1 }}
-                        className="text-4xl sm:text-5xl font-bold tracking-tighter text-neutral-900"
+                        className="text-4xl sm:text-5xl font-normal tracking-tighter text-neutral-900 font-display"
                     >
                         Everything you need
                         <br />
-                        <span className="text-neutral-400">to impress clients</span>
+                        <span className="text-neutral-400 italic">to impress clients</span>
                     </motion.h2>
                 </div>
 
