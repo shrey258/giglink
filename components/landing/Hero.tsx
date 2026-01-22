@@ -56,11 +56,11 @@ export default function Hero() {
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ ...SPRING_ENTER, delay: 0.2 }}
-                className="text-center text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-normal tracking-tighter text-neutral-900 leading-[0.9] font-display"
+                className="text-center text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-normal tracking-tighter text-neutral-900 leading-[0.9] font-display overflow-visible"
             >
                 Client portals
                 <br />
-                <span className="bg-gradient-to-r from-blue-600 via-violet-600 to-purple-600 bg-clip-text text-transparent italic">
+                <span className="bg-gradient-to-r from-blue-600 via-violet-600 to-purple-600 bg-clip-text text-transparent italic pr-[0.1em]">
                     without the friction
                 </span>
                 <span className="text-blue-600">.</span>
