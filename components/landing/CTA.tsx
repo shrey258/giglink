@@ -3,6 +3,7 @@
 import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
 import Link from 'next/link';
+import { ArrowRight, Check } from 'lucide-react';
 
 const SPRING_ENTER = {
     type: 'spring',
@@ -86,19 +87,7 @@ export default function CTA() {
                                 className="group relative inline-flex items-center justify-center gap-2 rounded-full bg-white px-8 py-4 text-base font-semibold text-neutral-900 shadow-lg transition-all duration-300 hover:shadow-xl hover:scale-[1.02] active:scale-[0.98]"
                             >
                                 <span>Get Started Free</span>
-                                <svg
-                                    className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    stroke="currentColor"
-                                    strokeWidth={2.5}
-                                >
-                                    <path
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
-                                    />
-                                </svg>
+                                <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" strokeWidth={2.5} />
                             </Link>
 
                             <Link
@@ -119,19 +108,7 @@ export default function CTA() {
                             {['No credit card', 'Free during beta', 'Cancel anytime'].map(
                                 (item) => (
                                     <div key={item} className="flex items-center gap-2">
-                                        <svg
-                                            className="h-4 w-4 text-emerald-500"
-                                            fill="none"
-                                            viewBox="0 0 24 24"
-                                            stroke="currentColor"
-                                            strokeWidth={3}
-                                        >
-                                            <path
-                                                strokeLinecap="round"
-                                                strokeLinejoin="round"
-                                                d="M5 13l4 4L19 7"
-                                            />
-                                        </svg>
+                                        <Check className="h-4 w-4 text-emerald-500" strokeWidth={3} />
                                         <span>{item}</span>
                                     </div>
                                 )

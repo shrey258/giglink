@@ -2,6 +2,7 @@
 
 import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
+import { Plus, Check } from 'lucide-react';
 
 const SPRING_ENTER = {
     type: 'spring',
@@ -76,19 +77,7 @@ const steps = [
                         transition={{ duration: 3, repeat: Infinity }}
                         className="flex items-center justify-center h-16 rounded-2xl border-2 border-dashed border-neutral-300 text-neutral-400"
                     >
-                        <svg
-                            className="h-6 w-6 mr-2"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                        >
-                            <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth={2}
-                                d="M12 4v16m8-8H4"
-                            />
-                        </svg>
+                        <Plus className="h-5 w-5 mr-2" strokeWidth={2} />
                         Add link
                     </motion.div>
                 </div>
@@ -110,22 +99,13 @@ const steps = [
                         transition={{ delay: 0.3, type: 'spring', stiffness: 400, damping: 15 }}
                         className="flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-emerald-500 to-cyan-500 shadow-lg shadow-emerald-500/25"
                     >
-                        <motion.svg
+                        <motion.div
                             initial={{ pathLength: 0 }}
                             animate={{ pathLength: 1 }}
                             transition={{ delay: 0.5, duration: 0.5 }}
-                            className="h-10 w-10 text-white"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                            strokeWidth={3}
                         >
-                            <motion.path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                d="M5 13l4 4L19 7"
-                            />
-                        </motion.svg>
+                            <Check className="h-10 w-10 text-white" strokeWidth={3} />
+                        </motion.div>
                     </motion.div>
                     <div className="text-center">
                         <p className="text-sm font-bold text-emerald-600">Link Copied!</p>

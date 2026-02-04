@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { motion } from 'framer-motion';
+import { Link as LinkIcon } from 'lucide-react';
 
 const SPRING_ENTER = {
     type: 'spring',
@@ -26,19 +27,7 @@ export default function Footer() {
                     <div className="lg:col-span-2">
                         <Link href="/" className="flex items-center gap-2">
                             <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-blue-600 to-violet-600 shadow-md">
-                                <svg
-                                    className="h-5 w-5 text-white"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    stroke="currentColor"
-                                    strokeWidth={2.5}
-                                >
-                                    <path
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"
-                                    />
-                                </svg>
+                                <LinkIcon className="h-5 w-5 text-white" strokeWidth={2.5} />
                             </div>
                             <span className="text-xl font-normal tracking-tight text-neutral-900 font-display">
                                 GigLink
